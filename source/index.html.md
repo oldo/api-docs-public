@@ -2,10 +2,6 @@
 title: API Reference
 
 language_tabs:
-  - shell
-  - ruby
-  - python
-  - javascript
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
@@ -19,171 +15,315 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Hola! This is a preliminary version of Bookinglayer's Public API docs which we can use to define expected endpoint routes, request payloads and structure of responses.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+# Things to Discuss
 
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+## General Stuff
 
-# Authentication
+* Just have one `/products` endpoint that returns all the information required for all products or have `/products` return very general information and then provide more specific information with `/product/{id}`?
+  * Simple response: lighterweight responses but more requests required
+  * Deatiled response: heavier response from `/products` but could avoid multiple calls to `products/{id}`. Would mean that webdevs would have to store and handle information throughout their app which may not be convenient depending on how they are consuming the response from API.
+* Translations - always include available translations or have language code as part of request payload?
+  * could be nice to have language code as an optional parameter as part of the request as it simplifies the response.
+* How to identify/handle multiple locations?
 
-> To authorize, use this code:
+API docs for inspiration
 
-```ruby
-require 'kittn'
+* https://stripe.com/docs/api/node#intro
+* https://docs.travis-ci.com/api/#overview
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+# Request Structure
 
-```python
-import kittn
+Insert details of the request structure here:
 
-api = kittn.authorize('meowmeowmeow')
-```
+* Root URL: `https://api.bookinglayer.io/pub/`
+* How are we going to identify the business? Just pass `business_id` with each request? Or have an actual API key?
+* Header parameters:
+  * Accept
+  * Content-Type?
+  * Authorization?
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+# Products
 
-```javascript
-const kittn = require('kittn');
+## Get All Products
 
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
+> Simple response option:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "categories": [
+    {
+      "id": 1,
+      "title": "Surf Camps",
+      "image": "https://url.to.image.jpg"
+    }
+  ],
+  "packages": [
+    {
+      "id": 384,
+      "title": "Surf Camp",
+      "description": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
+      "extended_description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+      "category_id": 1,
+      "image": {
+        "small": "https://url.to.small.image.jpg",
+        "medium": "https://url.to.medium.image.jpg",
+        "large": "https://url.to.large.image.jpg",
+      },
+      "price_from": {
+        "EUR": 199,
+        "USD": 180
+      }
+    }
+  ],
+  "accommodation": [],
+  "activities": [],
+  "services": [],
+  "rentals": [],
+  "items": [],
+  "bundles": []
 }
 ```
 
-This endpoint retrieves a specific kitten.
+> Detailed response option:
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+```json
+{
+  "categories": [
+    {
+      "id": 1,
+      "title": "Surf Camps",
+      "image": "https://url.to.image.jpg"
+    }
+  ],
+  "packages": [
+    {
+      "id": 384,
+      "title": "Surf Camp",
+      "description": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
+      "extended_description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+      "category_id": 1,
+      "capacity": 10,
+      "flexible_duration": true,
+      "default_duration": 7,
+      "duration_unit": "DAY",
+      "default_start_time": null,
+      "private": false,
+      "allowed_checkin_days": "Mon,Tue,Fri,Sat,Sun",
+      "gender": "MF",
+      "min_pax": 1,
+      "max_pax": 12,
+      "min_duration": 7,
+      "duration_variants": null,
+      "has_timeslots": false,
+      "image": {
+        "small": "https://url.to.small.image.jpg",
+        "medium": "https://url.to.medium.image.jpg",
+        "large": "https://url.to.large.image.jpg",
+      },
+      "price_from": {
+        "EUR": 199,
+        "USD": 180
+      }
+    }
+  ],
+  "accommodation": [],
+  "activities": [],
+  "services": [],
+  "rentals": [],
+  "items": [],
+  "bundles": []
+}
+```
+
+Returns general information about all available products:
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET https://api.bookinglayer.io/pub/products`
 
-### URL Parameters
+### Query Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+Parameter | Required | Example | Description
+--------- | ------- | ------- | -----------
+business_id | yes | `643` | Your unique business identifier.
+language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code. If no translation is available then default untranslated value is returned.
 
+<aside class="warning">
+Question: Return all of this detailed information in this response or just very general information and then return more specific information in the `/product/{id}` response?
+</aside>
+
+## Get Specific Product
+
+```json
+{
+  "id": 384,
+  "title": "Surf Camp",
+  "description": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
+  "extended_description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+  "category_id": 1,
+  "capacity": 10,
+  "flexible_duration": true,
+  "default_duration": 7,
+  "duration_unit": "DAY",
+  "default_start_time": null,
+  "private": false,
+  "allowed_checkin_days": "Mon,Tue,Fri,Sat,Sun",
+  "gender": "MF",
+  "min_pax": 1,
+  "max_pax": 12,
+  "min_duration": 7,
+  "duration_variants": null,
+  "has_timeslots": false,
+  "image": {
+    "small": "https://url.to.small.image.jpg",
+    "medium": "https://url.to.medium.image.jpg",
+    "large": "https://url.to.large.image.jpg",
+  },
+  "price_from": {
+    "EUR": 199,
+    "USD": 180
+  },
+  "dates": {
+    "2018-05-01": {
+      "allowed_for_checkin": true,
+      "blocked": false,
+      "available": 6
+    },
+    "2018-05-02": {
+      "allowed_for_checkin": true,
+      "blocked": true,
+      "available": 6
+    },
+    "2018-05-03": {
+      "allowed_for_checkin": true,
+      "blocked": true,
+      "available": 6
+    },
+    "2018-05-04": {
+      "allowed_for_checkin": false,
+      "blocked": false,
+      "available": 5
+    }
+  }
+}
+```
+
+Returns information about specific product including `dates` information for one month from current date:
+
+### HTTP Request
+
+`GET https://api.bookinglayer.io/pub/product/{id}`
+
+### Query Parameters
+
+Parameter | Required | Example | Description
+--------- | ------- | ------- | -----------
+business_id | yes | `643` | Your unique business identifier.
+language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code. If no translation is available then default untranslated value is returned.
+
+# Dates & Availability
+
+## Get Date & Availability
+
+> Response for package, accommodation, unscheduled and single date activities, services & rentals:
+
+```json
+{
+  "2018-05-01": {
+    "allowed_for_checkin": true,
+    "blocked": false,
+    "available": 6
+  },
+  "2018-05-02": {
+    "allowed_for_checkin": true,
+    "blocked": true,
+    "available": 6
+  },
+  "2018-05-03": {
+    "allowed_for_checkin": true,
+    "blocked": true,
+    "available": 6
+  },
+  "2018-05-04": {
+    "allowed_for_checkin": false,
+    "blocked": false,
+    "available": 5
+  }
+}
+```
+
+> Response for activities on timeslots:
+
+```json
+{
+  "2018-05-01": {
+    "time_slots": {
+      "10:00": {
+        "available": 10
+      },
+      "13:00": {
+        "available": 5
+      }
+    }
+  },
+  "2018-05-02": {
+    "blocked": true,
+    "time_slots": null
+  },
+  "2018-05-03": {
+    "time_slots": {
+      "17:30": {
+        "available": 10
+      }
+    }
+  },
+  "2018-05-04": {
+    "time_slots": null
+  }
+}
+```
+
+Returns dates and availability information for a specific product.
+
+* If product is a fixed date product then all future dates will be returned; else
+* 3 months worth of availability data will be returned from today's date or `start_date` if provided.
+
+Note that the flag for whether the product is on timeslots is returned as part of the `/products` and/or `/products/{id}` response.
+
+### HTTP Request
+
+`GET https://api.bookinglayer.io/pub/product/availability/{id}`
+
+### Query Parameters
+
+Parameter | Required | Example | Description
+--------- | ------- | ------- | -----------
+business_id | yes | `643` | Your unique business identifier.
+start_date | no | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format. If not provided then the current date will be taken as the start date.
+
+# Prices
+
+```json
+{
+  "unit_price": 6,
+  "gross_price": 12,
+}
+```
+
+Returns price information for a specific product.
+
+### HTTP Request
+
+`GET https://api.bookinglayer.io/pub/product/prices/{id}`
+
+### Query Parameters
+
+Parameter | Required | Example | Description
+--------- | ------- | ------- | -----------
+business_id | yes | `643` | Your unique business identifier.
+start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format. If not provided then the current date will be taken as the start date.
+currency | yes | `EUR` | Currency code
+pax | yes | `2` | Number of guests making the enquiry
+duration | no | `3` | Duration of the enquiry in the `duration_unit` defined for the product. If nothing is provided the product's `default_duration` will be used
