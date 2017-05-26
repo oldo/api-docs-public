@@ -216,7 +216,7 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
+            <li>Thanks for checking out Bookinglayer's API docs :-)</li>
             <li><a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -232,7 +232,7 @@
 <h2 id="general-stuff">General Stuff</h2>
 
 <ul>
-<li>Just have one <code class="prettyprint">/products</code> endpoint that returns all the information required for all products or have <code class="prettyprint">/products</code> return very general information and then provide more specific information with <code class="prettyprint">/product/{id}</code>?
+<li>Just have one <code class="prettyprint">/products</code> endpoint that returns all the information required for all products or have <code class="prettyprint">/products</code> return very general information and then provide more specific information with <code class="prettyprint">/products/{id}</code>?
 
 <ul>
 <li>Simple response: lighterweight responses but more requests required</li>
@@ -272,47 +272,6 @@
 <h1 id="products">Products</h1>
 
 <h2 id="get-all-products">Get All Products</h2>
-
-<blockquote>
-<p>Simple response option:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Surf Camps"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.image.jpg"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"packages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">384</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Surf Camp"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum."</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"extended_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"category_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.small.image.jpg"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.medium.image.jpg"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.large.image.jpg"</span><span class="p">,</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"price_from"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"EUR"</span><span class="p">:</span><span class="w"> </span><span class="mi">199</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"USD"</span><span class="p">:</span><span class="w"> </span><span class="mi">180</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"accommodation"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-  </span><span class="s2">"activities"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-  </span><span class="s2">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-  </span><span class="s2">"rentals"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-  </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-  </span><span class="s2">"bundles"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<blockquote>
-<p>Detailed response option:</p>
-</blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
@@ -391,7 +350,7 @@
 </tbody></table>
 
 <aside class="warning">
-Question: Return all of this detailed information in this response or just very general information and then return more specific information in the `/product/{id}` response?
+Question: Return all of this detailed information in this response or just very general information and then return more specific information in the `/products/{id}` response?
 </aside>
 
 <h2 id="get-specific-product">Get Specific Product</h2>
@@ -451,7 +410,7 @@ Question: Return all of this detailed information in this response or just very 
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.bookinglayer.io/pub/product/{id}</code></p>
+<p><code class="prettyprint">GET https://api.bookinglayer.io/pub/products/{id}</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -548,7 +507,7 @@ Question: Return all of this detailed information in this response or just very 
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.bookinglayer.io/pub/product/availability/{id}</code></p>
+<p><code class="prettyprint">GET https://api.bookinglayer.io/pub/products/availability/{id}</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -584,7 +543,7 @@ Question: Return all of this detailed information in this response or just very 
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.bookinglayer.io/pub/product/prices/{id}</code></p>
+<p><code class="prettyprint">GET https://api.bookinglayer.io/pub/products/prices/{id}</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -627,6 +586,10 @@ Question: Return all of this detailed information in this response or just very 
 <td>Duration of the enquiry in the <code class="prettyprint">duration_unit</code> defined for the product. If nothing is provided the product&rsquo;s <code class="prettyprint">default_duration</code> will be used</td>
 </tr>
 </tbody></table>
+
+<h1 id="deeplink-url-to-product">Deeplink URL to Product</h1>
+
+<p>Returns the URL required to link directly to the product, including all start date, end date, duration and pax settings.</p>
 
           <h1 id="error-codes">Error Codes</h1>
 
