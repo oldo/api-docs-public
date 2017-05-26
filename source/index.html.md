@@ -21,9 +21,7 @@ Hola! This is a preliminary version of Bookinglayer's Public API docs which we c
 
 ## General Stuff
 
-* Just have one `/products` endpoint that returns all the information required for all products or have `/products` return very general information and then provide more specific information with `/products/{id}`?
-  * Simple response: lighterweight responses but more requests required
-  * Deatiled response: heavier response from `/products` but could avoid multiple calls to `products/{id}`. Would mean that webdevs would have to store and handle information throughout their app which may not be convenient depending on how they are consuming the response from API.
+* Client identification? API keys?
 * Translations - always include available translations or have language code as part of request payload?
   * could be nice to have language code as an optional parameter as part of the request as it simplifies the response.
 * How to identify/handle multiple locations?
