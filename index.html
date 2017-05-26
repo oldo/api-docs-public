@@ -232,12 +232,7 @@
 <h2 id="general-stuff">General Stuff</h2>
 
 <ul>
-<li>Just have one <code class="prettyprint">/products</code> endpoint that returns all the information required for all products or have <code class="prettyprint">/products</code> return very general information and then provide more specific information with <code class="prettyprint">/products/{id}</code>?
-
-<ul>
-<li>Simple response: lighterweight responses but more requests required</li>
-<li>Deatiled response: heavier response from <code class="prettyprint">/products</code> but could avoid multiple calls to <code class="prettyprint">products/{id}</code>. Would mean that webdevs would have to store and handle information throughout their app which may not be convenient depending on how they are consuming the response from API.</li>
-</ul></li>
+<li>Client identification? API keys?</li>
 <li>Translations - always include available translations or have language code as part of request payload?
 
 <ul>
