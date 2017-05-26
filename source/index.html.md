@@ -4,7 +4,7 @@ title: API Reference
 language_tabs:
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  - Thanks for checking out Bookinglayer's API docs :-)
   - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -21,7 +21,7 @@ Hola! This is a preliminary version of Bookinglayer's Public API docs which we c
 
 ## General Stuff
 
-* Just have one `/products` endpoint that returns all the information required for all products or have `/products` return very general information and then provide more specific information with `/product/{id}`?
+* Just have one `/products` endpoint that returns all the information required for all products or have `/products` return very general information and then provide more specific information with `/products/{id}`?
   * Simple response: lighterweight responses but more requests required
   * Deatiled response: heavier response from `/products` but could avoid multiple calls to `products/{id}`. Would mean that webdevs would have to store and handle information throughout their app which may not be convenient depending on how they are consuming the response from API.
 * Translations - always include available translations or have language code as part of request payload?
@@ -47,46 +47,6 @@ Insert details of the request structure here:
 # Products
 
 ## Get All Products
-
-> Simple response option:
-
-```json
-{
-  "categories": [
-    {
-      "id": 1,
-      "title": "Surf Camps",
-      "image": "https://url.to.image.jpg"
-    }
-  ],
-  "packages": [
-    {
-      "id": 384,
-      "title": "Surf Camp",
-      "description": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
-      "extended_description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
-      "category_id": 1,
-      "image": {
-        "small": "https://url.to.small.image.jpg",
-        "medium": "https://url.to.medium.image.jpg",
-        "large": "https://url.to.large.image.jpg",
-      },
-      "price_from": {
-        "EUR": 199,
-        "USD": 180
-      }
-    }
-  ],
-  "accommodation": [],
-  "activities": [],
-  "services": [],
-  "rentals": [],
-  "items": [],
-  "bundles": []
-}
-```
-
-> Detailed response option:
 
 ```json
 {
@@ -151,7 +111,7 @@ business_id | yes | `643` | Your unique business identifier.
 language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code. If no translation is available then default untranslated value is returned.
 
 <aside class="warning">
-Question: Return all of this detailed information in this response or just very general information and then return more specific information in the `/product/{id}` response?
+Question: Return all of this detailed information in this response or just very general information and then return more specific information in the `/products/{id}` response?
 </aside>
 
 ## Get Specific Product
@@ -214,7 +174,7 @@ Returns information about specific product including `dates` information for one
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/product/{id}`
+`GET https://api.bookinglayer.io/pub/products/{id}`
 
 ### Query Parameters
 
@@ -294,7 +254,7 @@ Note that the flag for whether the product is on timeslots is returned as part o
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/product/availability/{id}`
+`GET https://api.bookinglayer.io/pub/products/availability/{id}`
 
 ### Query Parameters
 
@@ -316,7 +276,7 @@ Returns price information for a specific product.
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/product/prices/{id}`
+`GET https://api.bookinglayer.io/pub/products/prices/{id}`
 
 ### Query Parameters
 
@@ -327,3 +287,7 @@ start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD
 currency | yes | `EUR` | Currency code
 pax | yes | `2` | Number of guests making the enquiry
 duration | no | `3` | Duration of the enquiry in the `duration_unit` defined for the product. If nothing is provided the product's `default_duration` will be used
+
+# Deeplink URL to Product
+
+Returns the URL required to link directly to the product, including all start date, end date, duration and pax settings.
