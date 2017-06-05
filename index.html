@@ -233,11 +233,8 @@
 
 <ul>
 <li>Client identification? API keys?</li>
-<li>Translations - always include available translations or have language code as part of request payload?
-
-<ul>
-<li>could be nice to have language code as an optional parameter as part of the request as it simplifies the response.</li>
-</ul></li>
+<li>Translations - return responses with default language of account. Language will be optional parameter with translations returned if set for product.</li>
+<li>Currency - return responses with default currency of account. Currency will be optional parameter with prices returned in requested currency.</li>
 <li>How to identify/handle multiple locations?</li>
 </ul>
 
@@ -300,10 +297,7 @@
         </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.medium.image.jpg"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.large.image.jpg"</span><span class="p">,</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"price_from"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"EUR"</span><span class="p">:</span><span class="w"> </span><span class="mi">199</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"USD"</span><span class="p">:</span><span class="w"> </span><span class="mi">180</span><span class="w">
-      </span><span class="p">}</span><span class="w">
+      </span><span class="s2">"price_from"</span><span class="p">:</span><span class="w"> </span><span class="mi">199</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="s2">"accommodation"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
@@ -337,16 +331,18 @@
 <td>Your unique business identifier.</td>
 </tr>
 <tr>
+<td>currency</td>
+<td>no</td>
+<td><code class="prettyprint">EUR</code></td>
+<td>Currency for returned prices. If not supplied the account&rsquo;s default currency will be used in response.</td>
+</tr>
+<tr>
 <td>language</td>
 <td>no</td>
 <td><code class="prettyprint">es</code></td>
 <td>If translation is available, returns translated fields such as &ldquo;title&rdquo; &amp; &ldquo;description&rdquo; according to language code. If no translation is available then default untranslated value is returned.</td>
 </tr>
 </tbody></table>
-
-<aside class="warning">
-Question: Return all of this detailed information in this response or just very general information and then return more specific information in the `/products/{id}` response?
-</aside>
 
 <h2 id="get-specific-product">Get Specific Product</h2>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
@@ -373,10 +369,7 @@ Question: Return all of this detailed information in this response or just very 
     </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.medium.image.jpg"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.large.image.jpg"</span><span class="p">,</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"price_from"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"EUR"</span><span class="p">:</span><span class="w"> </span><span class="mi">199</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"USD"</span><span class="p">:</span><span class="w"> </span><span class="mi">180</span><span class="w">
-  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"price_from"</span><span class="p">:</span><span class="w"> </span><span class="mi">199</span><span class="p">,</span><span class="w">
   </span><span class="s2">"dates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"2018-05-01"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"allowed_for_checkin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
@@ -407,6 +400,8 @@ Question: Return all of this detailed information in this response or just very 
 
 <p><code class="prettyprint">GET https://api.bookinglayer.io/pub/products/{id}</code></p>
 
+<p>Where <code class="prettyprint">{id}</code> is the id of the product</p>
+
 <h3 id="query-parameters">Query Parameters</h3>
 
 <table><thead>
@@ -422,6 +417,12 @@ Question: Return all of this detailed information in this response or just very 
 <td>yes</td>
 <td><code class="prettyprint">643</code></td>
 <td>Your unique business identifier.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>no</td>
+<td><code class="prettyprint">EUR</code></td>
+<td>Currency for returned prices. If not supplied the account&rsquo;s default currency will be used in response.</td>
 </tr>
 <tr>
 <td>language</td>
@@ -495,7 +496,7 @@ Question: Return all of this detailed information in this response or just very 
 
 <ul>
 <li>If product is a fixed date product then all future dates will be returned; else</li>
-<li>3 months worth of availability data will be returned from today&rsquo;s date or <code class="prettyprint">start_date</code> if provided.</li>
+<li>1 month worth of availability data will be returned from today&rsquo;s date or <code class="prettyprint">start_date</code> if provided.</li>
 </ul>
 
 <p>Note that the flag for whether the product is on timeslots is returned as part of the <code class="prettyprint">/products</code> and/or <code class="prettyprint">/products/{id}</code> response.</p>
@@ -503,6 +504,8 @@ Question: Return all of this detailed information in this response or just very 
 <h3 id="http-request">HTTP Request</h3>
 
 <p><code class="prettyprint">GET https://api.bookinglayer.io/pub/products/availability/{id}</code></p>
+
+<p>Where <code class="prettyprint">{id}</code> is the id of the product</p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -540,6 +543,63 @@ Question: Return all of this detailed information in this response or just very 
 
 <p><code class="prettyprint">GET https://api.bookinglayer.io/pub/products/prices/{id}</code></p>
 
+<p>Where <code class="prettyprint">{id}</code> is the id of the product</p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>business_id</td>
+<td>yes</td>
+<td><code class="prettyprint">643</code></td>
+<td>Your unique business identifier.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>no</td>
+<td><code class="prettyprint">EUR</code></td>
+<td>Currency for returned prices. If not supplied the account&rsquo;s default currency will be used in response.</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>yes</td>
+<td><code class="prettyprint">2018-02-08</code></td>
+<td>The start date for the response in <code class="prettyprint">YYYY-MM-DD</code> format.</td>
+</tr>
+<tr>
+<td>pax</td>
+<td>yes</td>
+<td><code class="prettyprint">2</code></td>
+<td>Number of guests making the enquiry</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>no</td>
+<td><code class="prettyprint">3</code></td>
+<td>Duration of the enquiry in the <code class="prettyprint">duration_unit</code> defined for the product. If nothing is provided the product&rsquo;s <code class="prettyprint">default_duration</code> will be used</td>
+</tr>
+</tbody></table>
+
+<h1 id="deeplink-url-to-product">Deeplink URL to Product</h1>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://yourbusiness.bookinglayer.io/frontoffice/product/1568?start='2018-03-02'&amp;duration=4&amp;male=2"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Returns the URL required to link directly to the product, including all start date, end date, duration and pax settings.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api.bookinglayer.io/pub/products/link/{id}</code></p>
+
+<p>Where <code class="prettyprint">{id}</code> is the id of the product</p>
+
 <h3 id="query-parameters">Query Parameters</h3>
 
 <table><thead>
@@ -558,33 +618,53 @@ Question: Return all of this detailed information in this response or just very 
 </tr>
 <tr>
 <td>start_date</td>
-<td>yes</td>
+<td>no</td>
 <td><code class="prettyprint">2018-02-08</code></td>
-<td>The start date for the response in <code class="prettyprint">YYYY-MM-DD</code> format. If not provided then the current date will be taken as the start date.</td>
-</tr>
-<tr>
-<td>currency</td>
-<td>yes</td>
-<td><code class="prettyprint">EUR</code></td>
-<td>Currency code</td>
-</tr>
-<tr>
-<td>pax</td>
-<td>yes</td>
-<td><code class="prettyprint">2</code></td>
-<td>Number of guests making the enquiry</td>
+<td>The start date in <code class="prettyprint">YYYY-MM-DD</code> format.</td>
 </tr>
 <tr>
 <td>duration</td>
 <td>no</td>
 <td><code class="prettyprint">3</code></td>
-<td>Duration of the enquiry in the <code class="prettyprint">duration_unit</code> defined for the product. If nothing is provided the product&rsquo;s <code class="prettyprint">default_duration</code> will be used</td>
+<td>Duration of the enquiry in the <code class="prettyprint">duration_unit</code> defined for the product.</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>no</td>
+<td><code class="prettyprint">2018-02-20</code></td>
+<td>The end date in <code class="prettyprint">YYYY-MM-DD</code> format.</td>
+</tr>
+<tr>
+<td>males</td>
+<td>no</td>
+<td><code class="prettyprint">2</code></td>
+<td>Number of males.</td>
+</tr>
+<tr>
+<td>females</td>
+<td>no</td>
+<td><code class="prettyprint">3</code></td>
+<td>Number of females.</td>
+</tr>
+<tr>
+<td>couples</td>
+<td>no</td>
+<td><code class="prettyprint">1</code></td>
+<td>Number of couples.</td>
+</tr>
+<tr>
+<td>language</td>
+<td>no</td>
+<td><code class="prettyprint">es</code></td>
+<td>Language that the frontoffice form should be rendered in.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>no</td>
+<td><code class="prettyprint">USD</code></td>
+<td>Currency that should be selected when frontoffice loads.</td>
 </tr>
 </tbody></table>
-
-<h1 id="deeplink-url-to-product">Deeplink URL to Product</h1>
-
-<p>Returns the URL required to link directly to the product, including all start date, end date, duration and pax settings.</p>
 
           <h1 id="error-codes">Error Codes</h1>
 
