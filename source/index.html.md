@@ -262,7 +262,7 @@ start_date | no | `2018-02-08` | The start date for the response in `YYYY-MM-DD`
 ```json
 {
   "unit_price": 6,
-  "gross_price": 12,
+  "total_price": 12
 }
 ```
 
