@@ -22,8 +22,8 @@ Hola! This is a preliminary version of Bookinglayer's Public API docs which we c
 ## General Stuff
 
 * Client identification? API keys?
-* Translations - always include available translations or have language code as part of request payload?
-  * could be nice to have language code as an optional parameter as part of the request as it simplifies the response.
+* Translations - return responses with default language of account. Language will be optional parameter with translations returned if set for product.
+* Currency - return responses with default currency of account. Currency will be optional parameter with prices returned in requested currency.
 * How to identify/handle multiple locations?
 
 API docs for inspiration
@@ -80,10 +80,7 @@ Insert details of the request structure here:
         "medium": "https://url.to.medium.image.jpg",
         "large": "https://url.to.large.image.jpg",
       },
-      "price_from": {
-        "EUR": 199,
-        "USD": 180
-      }
+      "price_from": 199
     }
   ],
   "accommodation": [],
@@ -106,11 +103,8 @@ Returns general information about all available products:
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
 business_id | yes | `643` | Your unique business identifier.
+currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code. If no translation is available then default untranslated value is returned.
-
-<aside class="warning">
-Question: Return all of this detailed information in this response or just very general information and then return more specific information in the `/products/{id}` response?
-</aside>
 
 ## Get Specific Product
 
@@ -139,10 +133,7 @@ Question: Return all of this detailed information in this response or just very 
     "medium": "https://url.to.medium.image.jpg",
     "large": "https://url.to.large.image.jpg",
   },
-  "price_from": {
-    "EUR": 199,
-    "USD": 180
-  },
+  "price_from": 199,
   "dates": {
     "2018-05-01": {
       "allowed_for_checkin": true,
@@ -174,11 +165,14 @@ Returns information about specific product including `dates` information for one
 
 `GET https://api.bookinglayer.io/pub/products/{id}`
 
+Where `{id}` is the id of the product
+
 ### Query Parameters
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
 business_id | yes | `643` | Your unique business identifier.
+currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code. If no translation is available then default untranslated value is returned.
 
 # Dates & Availability
@@ -246,13 +240,15 @@ language | no | `es` | If translation is available, returns translated fields su
 Returns dates and availability information for a specific product.
 
 * If product is a fixed date product then all future dates will be returned; else
-* 3 months worth of availability data will be returned from today's date or `start_date` if provided.
+* 1 month worth of availability data will be returned from today's date or `start_date` if provided.
 
 Note that the flag for whether the product is on timeslots is returned as part of the `/products` and/or `/products/{id}` response.
 
 ### HTTP Request
 
 `GET https://api.bookinglayer.io/pub/products/availability/{id}`
+
+Where `{id}` is the id of the product
 
 ### Query Parameters
 
@@ -276,16 +272,44 @@ Returns price information for a specific product.
 
 `GET https://api.bookinglayer.io/pub/products/prices/{id}`
 
+Where `{id}` is the id of the product
+
 ### Query Parameters
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
 business_id | yes | `643` | Your unique business identifier.
-start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format. If not provided then the current date will be taken as the start date.
-currency | yes | `EUR` | Currency code
+currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
+start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format.
 pax | yes | `2` | Number of guests making the enquiry
 duration | no | `3` | Duration of the enquiry in the `duration_unit` defined for the product. If nothing is provided the product's `default_duration` will be used
 
 # Deeplink URL to Product
 
+```json
+{
+  "url": "https://yourbusiness.bookinglayer.io/frontoffice/product/1568?start='2018-03-02'&duration=4&male=2"
+}
+```
+
 Returns the URL required to link directly to the product, including all start date, end date, duration and pax settings.
+
+### HTTP Request
+
+`GET https://api.bookinglayer.io/pub/products/link/{id}`
+
+Where `{id}` is the id of the product
+
+### Query Parameters
+
+Parameter | Required | Example | Description
+--------- | ------- | ------- | -----------
+business_id | yes | `643` | Your unique business identifier.
+start_date | no | `2018-02-08` | The start date in `YYYY-MM-DD` format.
+duration | no | `3` | Duration of the enquiry in the `duration_unit` defined for the product.
+end_date | no | `2018-02-20` | The end date in `YYYY-MM-DD` format.
+males | no | `2` | Number of males.
+females | no | `3` | Number of females.
+couples | no | `1` | Number of couples.
+language | no | `es` | Language that the frontoffice form should be rendered in.
+currency | no | `USD` | Currency that should be selected when frontoffice loads.
