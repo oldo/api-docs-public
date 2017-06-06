@@ -48,16 +48,18 @@ Insert details of the request structure here:
 
 ```json
 {
-  "categories": [
-    {
+  "categories": {
+    "1": {
       "id": 1,
       "title": "Surf Camps",
-      "image": "https://url.to.image.jpg"
+      "image": "https://url.to.image.jpg",
+      "products": [384, 12, 745]
     }
-  ],
-  "packages": [
-    {
+  },
+  "products": {
+    "384": {
       "id": 384,
+      "type": "package",
       "title": "Surf Camp",
       "description": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
       "extended_description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
@@ -82,13 +84,7 @@ Insert details of the request structure here:
       },
       "price_from": 199
     }
-  ],
-  "accommodation": [],
-  "activities": [],
-  "services": [],
-  "rentals": [],
-  "items": [],
-  "bundles": []
+  }
 }
 ```
 
@@ -102,7 +98,7 @@ Returns general information about all available products:
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
-business_id | yes | `643` | Your unique business identifier.
+key | yes | `643` | Your unique API access key.
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code. If no translation is available then default untranslated value is returned.
 
@@ -171,7 +167,7 @@ Where `{id}` is the id of the product
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
-business_id | yes | `643` | Your unique business identifier.
+key | yes | `643` | Your unique API access key.
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code. If no translation is available then default untranslated value is returned.
 
@@ -254,7 +250,7 @@ Where `{id}` is the id of the product
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
-business_id | yes | `643` | Your unique business identifier.
+key | yes | `643` | Your unique API access key.
 start_date | no | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format. If not provided then the current date will be taken as the start date.
 
 # Prices
@@ -278,7 +274,7 @@ Where `{id}` is the id of the product
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
-business_id | yes | `643` | Your unique business identifier.
+key | yes | `643` | Your unique API access key.
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format.
 pax | yes | `2` | Number of guests making the enquiry
@@ -304,7 +300,7 @@ Where `{id}` is the id of the product
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
-business_id | yes | `643` | Your unique business identifier.
+key | yes | `643` | Your unique API access key.
 start_date | no | `2018-02-08` | The start date in `YYYY-MM-DD` format.
 duration | no | `3` | Duration of the enquiry in the `duration_unit` defined for the product.
 end_date | no | `2018-02-20` | The end date in `YYYY-MM-DD` format.
