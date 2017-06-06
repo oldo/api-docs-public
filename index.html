@@ -265,16 +265,18 @@
 
 <h2 id="get-all-products">Get All Products</h2>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Surf Camps"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.image.jpg"</span><span class="w">
+      </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.image.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">384</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">745</span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"packages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"384"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">384</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"package"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Surf Camp"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum."</span><span class="p">,</span><span class="w">
       </span><span class="s2">"extended_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."</span><span class="p">,</span><span class="w">
@@ -299,13 +301,7 @@
       </span><span class="p">},</span><span class="w">
       </span><span class="s2">"price_from"</span><span class="p">:</span><span class="w"> </span><span class="mi">199</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"accommodation"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-  </span><span class="s2">"activities"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-  </span><span class="s2">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-  </span><span class="s2">"rentals"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-  </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
-  </span><span class="s2">"bundles"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Returns general information about all available products:</p>
@@ -325,10 +321,10 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>business_id</td>
+<td>key</td>
 <td>yes</td>
 <td><code class="prettyprint">643</code></td>
-<td>Your unique business identifier.</td>
+<td>Your unique API access key.</td>
 </tr>
 <tr>
 <td>currency</td>
@@ -413,10 +409,10 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>business_id</td>
+<td>key</td>
 <td>yes</td>
 <td><code class="prettyprint">643</code></td>
-<td>Your unique business identifier.</td>
+<td>Your unique API access key.</td>
 </tr>
 <tr>
 <td>currency</td>
@@ -518,10 +514,10 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>business_id</td>
+<td>key</td>
 <td>yes</td>
 <td><code class="prettyprint">643</code></td>
-<td>Your unique business identifier.</td>
+<td>Your unique API access key.</td>
 </tr>
 <tr>
 <td>start_date</td>
@@ -556,10 +552,10 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>business_id</td>
+<td>key</td>
 <td>yes</td>
 <td><code class="prettyprint">643</code></td>
-<td>Your unique business identifier.</td>
+<td>Your unique API access key.</td>
 </tr>
 <tr>
 <td>currency</td>
@@ -611,10 +607,10 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>business_id</td>
+<td>key</td>
 <td>yes</td>
 <td><code class="prettyprint">643</code></td>
-<td>Your unique business identifier.</td>
+<td>Your unique API access key.</td>
 </tr>
 <tr>
 <td>start_date</td>
