@@ -1,7 +1,7 @@
-# DEPLOY:
-```
-rsync -avz --progress ~/Bookinglayer/Github/api-docs-public/build/ bookinglayer@95.85.18.58:/home/bookinglayer/api-docs
-```
+# Important Commands:
+
+* Watch and Livereload: `bundle exec middleman server`
+* Deploy: `bundle exec middleman deploy --build-before`
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/lord/img/master/logo-slate.png" alt="Slate: API Documentation Generator" width="226">

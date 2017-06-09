@@ -52,10 +52,10 @@ set :port, 4567
 # Deploy
 activate :deploy do |deploy|
   deploy.deploy_method = :rsync
-  deploy.host          = '95.85.18.58'
+  deploy.host          = 'bookinglayer@95.85.18.58'
   deploy.path          = '/home/bookinglayer/api-docs'
   # Optional Settings
-  deploy.user  = 'bookinglayer' # no default
+  # deploy.user  = 'bookinglayer' # no default
   # deploy.port  = 2202 # ssh port, default: 22
   # deploy.clean = true # remove orphaned files on remote host, default: false
   # deploy.flags = '-rltgoDvzO --no-p --del' # add custom flags, default: -avz
