@@ -12,9 +12,11 @@ search: true
 
 # Introduction
 
-Hi there! This is a preliminary version of Bookinglayer's Public API docs which we is used to define expected endpoint routes, request payloads and structure of responses.
+Hi there! This is a preliminary version of Bookinglayer's Public API docs which is used to define expected endpoint routes, request payloads and structure of responses.
 
 This is a work in progress at this stage but we will be actively working to ensure that all the important information required to build a customised enquiry form will be available - if there is anything that you'd like to request or any questions that you have, please get in contact at [tech@bookinglayer.com](mailto:tech@bookinglayer.com).
+
+We will also be working to further define the various objects that are returned by the API to give the developer a full understanding on what each field represents.
 
 # Request Structure
 
