@@ -40,6 +40,13 @@ All requests require an API identification key, which is also passed to the endp
       "products": [384, 12, 745]
     }
   },
+  "locations": {
+    "12": {
+      "id": 12,
+      "title": "Costa Rica",
+      "products": [384, 42]
+    }
+  },
   "products": {
     "384": {
       "id": 384,
@@ -48,6 +55,7 @@ All requests require an API identification key, which is also passed to the endp
       "description": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
       "extended_description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
       "category_id": 1,
+      "location_id": 12,
       "capacity": 10,
       "flexible_duration": true,
       "default_duration": 7,
@@ -85,6 +93,8 @@ Parameter | Required | Example | Description
 key | yes | | Your unique API access key.
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code. If no translation is available then default untranslated values are returned.
+location | no | `12` | Filter results in `products` to a particular location
+type | no | `lesson` | Filter results in `products` to a particular product type. Product types options are: `package`, `accommodation`, `lesson`, `rental`, `service`, `bundle` and `item`.
 
 ## Get Specific Product
 
@@ -95,6 +105,7 @@ language | no | `es` | If translation is available, returns translated fields su
   "description": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
   "extended_description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
   "category_id": 1,
+  "location_id": 12,
   "capacity": 10,
   "flexible_duration": true,
   "default_duration": 7,
@@ -270,6 +281,51 @@ start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD
 pax | yes | `2` | Number of guests making the enquiry
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 duration | no | `3` | Duration of the enquiry in the `duration_unit` defined for the product. If nothing is provided the product's `default_duration` will be used
+
+# Accommodation
+
+```json
+[  
+  {
+    "id": 392,
+    "title": "Surfside Dowm",
+    "description": "Sed posuere consectetur est at lobortis",
+    "location_id": 12,
+    "start": "2017-08-01",
+    "end": "2017-08-08",
+    "pax": 2,
+    "pricing": "person",
+    "image":  {
+      "small":  "https: //url.to.small.image.jpg",
+      "medium":  "https: //url.to.medium.image.jpg",
+      "large":  "https: //url.to.large.image.jpg",
+    },
+    "item_type": "default",
+    "upgrade_price": 120,
+    "srs": true,
+    "srs_charge": 252,
+    "variant_id": null
+  }
+]
+```
+
+Returns an array of accommodation options for a package.
+
+### HTTP Request
+
+`GET https://api.bookinglayer.io/pub/accommodation/{id}`
+
+Where `{id}` is the id of the package which contains the accommodation options.
+
+### Query Parameters
+
+Parameter | Required | Example | Description
+--------- | ------- | ------- | -----------
+key | yes | | Your unique API access key.
+start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format.
+pax | yes | `2` | Number of guests making the enquiry
+currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
+duration | yes | `3` | Duration of the enquiry in nights.
 
 # Deeplink URL to Product
 
