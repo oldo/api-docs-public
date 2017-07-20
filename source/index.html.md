@@ -170,6 +170,109 @@ key | yes | | Your unique API access key.
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code. If no translation is available then default untranslated values are returned.
 
+## Package Extras & Upgrades
+
+```json
+[
+  {
+    "product_id": 396,
+    "product_type": "service",
+    "type": "option",
+    "title": "Pharetra Quam Dolor",
+    "request_qty": false,
+    "translated": null,
+    "price": 0,
+    "image": {
+      "small": "https: //url.to.small.image.jpg",
+      "medium": "https: //url.to.medium.image.jpg",
+      "large": "https: //url.to.large.image.jpg",
+    },
+    "default_qty": 1,
+    "min_qty": 0,
+    "max_qty": 8,
+    "pricing": "fixed",
+    "description": "Integer posuere erat a ante venenatis dapibus posuere velit aliquet.",
+    "extended_description": "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Nullam quis risus eget urna mollis ornare vel eu leo."
+  }
+]
+```
+
+Returns an array of extras and upgrade options for a package.
+
+Note that `type` can have one of the following values:
+
+* `default`: included in the package by default;
+* `alternative`: an item that can be selected as an alternative to the default option at no extra expense;
+* `upgrade`: an item that can be selected as an alternative to the default option at an additional expense; and
+* `option`: an optional extra that can be added to the package.
+
+### HTTP Request
+
+`GET https://api.bookinglayer.io/pub/products/{id}/extras`
+
+Where `{id}` is the id of the package.
+
+### Query Parameters
+
+Parameter | Required | Example | Description
+--------- | ------- | ------- | -----------
+key | yes | | Your unique API access key.
+start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format.
+duration | yes | `3` | Duration of the enquiry in nights.
+pax | yes | `2` | Number of people making the enquiry
+currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
+
+# Accommodation
+
+```json
+[  
+  {
+    "id": 392,
+    "title": "Surfside Dowm",
+    "description": "Sed posuere consectetur est at lobortis",
+    "location_id": 12,
+    "start": "2017-08-01",
+    "end": "2017-08-08",
+    "pax": {
+      "males": 2,
+      "females": 3,
+      "couples": 0
+    },
+    "pricing": "person",
+    "image":  {
+      "small":  "https: //url.to.small.image.jpg",
+      "medium":  "https: //url.to.medium.image.jpg",
+      "large":  "https: //url.to.large.image.jpg",
+    },
+    "item_type": "upgrade",
+    "upgrade_price": 120,
+    "srs": true,
+    "srs_charge": 252,
+    "variant_id": null
+  }
+]
+```
+
+Returns an array of accommodation options for a package.
+
+### HTTP Request
+
+`GET https://api.bookinglayer.io/pub/accommodations/{id}`
+
+Where `{id}` is the id of the package which contains the accommodation options.
+
+### Query Parameters
+
+Parameter | Required | Example | Description
+--------- | ------- | ------- | -----------
+key | yes | | Your unique API access key.
+start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format.
+duration | yes | `3` | Duration of the enquiry in nights.
+males | yes | `2` | Number of males making the enquiry
+females | yes | `2` | Number of females making the enquiry
+couples | yes | `2` | Number of couples making the enquiry
+currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
+
 # Dates & Availability
 
 ## Get Date & Availability
@@ -245,7 +348,7 @@ Note that the flag for whether the product is on timeslots is returned as part o
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/products/availability/{id}`
+`GET https://api.bookinglayer.io/pub/products/availabilities/{id}`
 
 Where `{id}` is the id of the product
 
@@ -282,52 +385,58 @@ pax | yes | `2` | Number of guests making the enquiry
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 duration | no | `3` | Duration of the enquiry in the `duration_unit` defined for the product. If nothing is provided the product's `default_duration` will be used
 
-# Accommodation
+# Seasons
 
 ```json
-[  
-  {
-    "id": 392,
-    "title": "Surfside Dowm",
-    "description": "Sed posuere consectetur est at lobortis",
-    "location_id": 12,
-    "start": "2017-08-01",
-    "end": "2017-08-08",
-    "pax": 2,
-    "pricing": "person",
-    "image":  {
-      "small":  "https: //url.to.small.image.jpg",
-      "medium":  "https: //url.to.medium.image.jpg",
-      "large":  "https: //url.to.large.image.jpg",
-    },
-    "item_type": "default",
-    "upgrade_price": 120,
-    "srs": true,
-    "srs_charge": 252,
-    "variant_id": null
+{
+  "80": {
+    "id": 80,
+    "title": "High",
+    "season_segments": [
+      {
+        "id": 138,
+        "from": "1900-01-01T00:00:00+0000",
+        "to": "1900-04-29T00:00:00+0000",
+        "season_id": 80
+      },
+      {
+        "id": 139,
+        "from": "1900-08-01T00:00:00+0000",
+        "to": "1900-12-31T00:00:00+0000",
+        "season_id": 80
+      }
+    ]
+  },
+  "81": {
+    "id": 81,
+    "title": "Low",
+    "season_segments": [
+      {
+        "id": 137,
+        "from_date": "1900-05-30T00:00:00+0000",
+        "to_date": "1900-07-31T00:00:00+0000",
+        "season_id": 81
+      }
+    ]
   }
-]
+}
 ```
 
-Returns an array of accommodation options for a package.
+Returns seasons for a business.
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/accommodation/{id}`
-
-Where `{id}` is the id of the package which contains the accommodation options.
+`GET https://api.bookinglayer.io/pub/seasons`
 
 ### Query Parameters
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
 key | yes | | Your unique API access key.
-start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format.
-pax | yes | `2` | Number of guests making the enquiry
-currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
-duration | yes | `3` | Duration of the enquiry in nights.
 
-# Deeplink URL to Product
+# Deeplinking
+
+## Deeplink URL to Product
 
 ```json
 {
@@ -339,7 +448,7 @@ Returns the URL required to link directly to the product in Bookinglayer's front
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/deeplink/{id}`
+`GET https://api.bookinglayer.io/pub/products/{id}/deeplink`
 
 Where `{id}` is the id of the product
 
