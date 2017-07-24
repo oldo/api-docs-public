@@ -170,34 +170,79 @@ key | yes | | Your unique API access key.
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code. If no translation is available then default untranslated values are returned.
 
-## Package Extras & Upgrades
+# Packages
+
+## Package Extras & Daily Configuration
 
 ```json
-[
-  {
-    "product_id": 396,
-    "product_type": "service",
-    "type": "option",
-    "title": "Pharetra Quam Dolor",
-    "request_qty": false,
-    "translated": null,
-    "price": 0,
-    "image": {
-      "small": "https: //url.to.small.image.jpg",
-      "medium": "https: //url.to.medium.image.jpg",
-      "large": "https: //url.to.large.image.jpg",
-    },
-    "default_qty": 1,
-    "min_qty": 0,
-    "max_qty": 8,
-    "pricing": "fixed",
-    "description": "Integer posuere erat a ante venenatis dapibus posuere velit aliquet.",
-    "extended_description": "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Nullam quis risus eget urna mollis ornare vel eu leo."
+{
+  "extras": [
+    {
+      "product_id": 396,
+      "product_type": "service",
+      "type": "option",
+      "title": "Pharetra Quam Dolor",
+      "description": "Integer posuere erat a ante venenatis dapibus posuere velit aliquet.",
+      "extended_description": "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Nullam quis risus eget urna mollis ornare vel eu leo.",
+      "translated": null,
+      "price": 35,
+      "image": {
+        "small": "https://url.to.small.image.jpg",
+        "medium": "https://url.to.medium.image.jpg",
+        "large": "https://url.to.large.image.jpg",
+      },
+      "request_qty": false,
+      "default_qty": 1,
+      "min_qty": 0,
+      "max_qty": 8,
+      "pricing": "fixed"
+    }
+  ],
+  "daily_configuration": {
+    "2017-10-10": [
+      {
+        "product_id": 412,
+        "type": "default",
+        "title": "Pellentesque Aenean",
+        "description": "Donec ullamcorper nulla non metus auctor fringilla.",
+        "extended_description": "Cras mattis consectetur purus sit amet fermentum. Etiam porta sem malesuada magna mollis euismod.",
+        "price": 0,
+        "image": {
+          "small": "https://url.to.small.image.jpg",
+          "medium": "https://url.to.medium.image.jpg",
+          "large": "https://url.to.large.image.jpg",
+        },
+        "request_qty": false,
+        "default_qty": 1,
+        "min_qty": 0,
+        "max_qty": 8,
+      },
+      {
+        "product_id": 456,
+        "type": "option",
+        "title": "Tristique Fermentum",
+        "description": "Integer posuere erat a ante venenatis dapibus posuere velit aliquet.",
+        "extended_description": "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.",
+        "price": 42,
+        "image": {
+          "small": "https://url.to.small.image.jpg",
+          "medium": "https://url.to.medium.image.jpg",
+          "large": "https://url.to.large.image.jpg",
+        },
+        "request_qty": false,
+        "default_qty": 1,
+        "min_qty": 0,
+        "max_qty": 8,
+      }
+    ]
   }
-]
+}
 ```
 
-Returns an array of extras and upgrade options for a package.
+Returns two objects relevant to a package:
+
+* an array of extras; and
+* daily configuration options.
 
 Note that `type` can have one of the following values:
 
@@ -208,7 +253,7 @@ Note that `type` can have one of the following values:
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/products/{id}/extras`
+`GET https://api.bookinglayer.io/pub/packages/{id}`
 
 Where `{id}` is the id of the package.
 
@@ -222,7 +267,7 @@ duration | yes | `3` | Duration of the enquiry in nights.
 pax | yes | `2` | Number of people making the enquiry
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 
-# Accommodation
+## Accommodation
 
 ```json
 [  
@@ -230,6 +275,8 @@ currency | no | `EUR` | Currency for returned prices. If not supplied the accoun
     "id": 392,
     "title": "Surfside Dowm",
     "description": "Sed posuere consectetur est at lobortis",
+    "room_type_id": 1345,
+    "room_type_title": "Double Room",
     "location_id": 12,
     "start": "2017-08-01",
     "end": "2017-08-08",
@@ -240,11 +287,12 @@ currency | no | `EUR` | Currency for returned prices. If not supplied the accoun
     },
     "pricing": "person",
     "image":  {
-      "small":  "https: //url.to.small.image.jpg",
-      "medium":  "https: //url.to.medium.image.jpg",
-      "large":  "https: //url.to.large.image.jpg",
+      "small":  "https://url.to.small.image.jpg",
+      "medium":  "https://url.to.medium.image.jpg",
+      "large":  "https://url.to.large.image.jpg",
     },
     "item_type": "upgrade",
+    "price": 200,
     "upgrade_price": 120,
     "srs": true,
     "srs_charge": 252,
@@ -257,7 +305,7 @@ Returns an array of accommodation options for a package.
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/accommodations/{id}`
+`GET https://api.bookinglayer.io/pub/packages/{id}/accommodation`
 
 Where `{id}` is the id of the package which contains the accommodation options.
 
@@ -270,7 +318,7 @@ start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD
 duration | yes | `3` | Duration of the enquiry in nights.
 males | yes | `2` | Number of males making the enquiry
 females | yes | `2` | Number of females making the enquiry
-couples | yes | `2` | Number of couples making the enquiry
+couples | yes | `0` | Number of couples making the enquiry
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 
 # Dates & Availability
