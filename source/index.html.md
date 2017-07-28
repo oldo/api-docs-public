@@ -305,7 +305,7 @@ Returns an array of accommodation options for a package.
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/packages/{id}/accommodation`
+`GET https://api.bookinglayer.io/pub/packages/{id}/accommodations`
 
 Where `{id}` is the id of the package which contains the accommodation options.
 
@@ -396,7 +396,7 @@ Note that the flag for whether the product is on timeslots is returned as part o
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/products/availabilities/{id}`
+`GET https://api.bookinglayer.io/pub/products/{id}/availabilities`
 
 Where `{id}` is the id of the product
 
@@ -409,9 +409,45 @@ start_date | no | `2018-02-08` | The start date for the response in `YYYY-MM-DD`
 
 # Prices
 
+> if a single product (e.g. straight accommodation, activity, etc.) or a package whose price is set manually
+
 ```json
 {
   "total_price": 12
+}
+```
+
+> if a package whose price is set automatically by its package contents
+
+```json
+{
+  "total_price": 291,
+  "contents": [
+    {
+      "id": 5600,
+      "title": "Room 11 - non sea view",
+      "type": "accommodation",
+      "price": 175
+    },
+    {
+      "id": 2216,
+      "title": "Airport pickup ",
+      "type": "service",
+      "price": 30
+    },
+    {
+      "id": 2271,
+      "title": "Airport dropoff",
+      "type": "service",
+      "price": 30
+    },
+    {
+      "id": 9890,
+      "title": "Surf Guiding package",
+      "type": "bundle",
+      "price": 56
+    }
+  ]
 }
 ```
 
@@ -419,7 +455,7 @@ Returns price information for a specific product.
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/products/prices/{id}`
+`GET https://api.bookinglayer.io/pub/products/{id}/prices`
 
 Where `{id}` is the id of the product
 
