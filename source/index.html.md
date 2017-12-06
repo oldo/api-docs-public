@@ -20,7 +20,7 @@ We will also be working to further define the various objects that are returned 
 
 # Request Structure
 
-`https://api.bookinglayer.io/pub/` is the root url for all requests to the Public API.
+`https://api.bookinglayer.io/pub/v1/` is the root url for all requests to the Public API.
 
 At this stage all parameters are passed to endpoints as URL query parameters. The endpoint definitions below stipulate which parameters are required or optional.
 
@@ -84,7 +84,7 @@ Returns general information about categories and all available products. Note th
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/products`
+`GET https://api.bookinglayer.io/pub/v1/products`
 
 ### Query Parameters
 
@@ -158,7 +158,7 @@ Returns information about specific product including `dates` information for one
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/products/{id}`
+`GET https://api.bookinglayer.io/pub/v1/products/{id}`
 
 Where `{id}` is the id of the product
 
@@ -253,7 +253,7 @@ Note that `type` can have one of the following values:
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/packages/{id}`
+`GET https://api.bookinglayer.io/pub/v1/packages/{id}`
 
 Where `{id}` is the id of the package.
 
@@ -305,7 +305,7 @@ Returns an array of accommodation options for a package.
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/packages/{id}/accommodations`
+`GET https://api.bookinglayer.io/pub/v1/packages/{id}/accommodations`
 
 Where `{id}` is the id of the package which contains the accommodation options.
 
@@ -396,7 +396,7 @@ Note that the flag for whether the product is on timeslots is returned as part o
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/products/{id}/availabilities`
+`GET https://api.bookinglayer.io/pub/v1/products/{id}/availabilities`
 
 Where `{id}` is the id of the product
 
@@ -409,7 +409,7 @@ start_date | no | `2018-02-08` | The start date for the response in `YYYY-MM-DD`
 
 # Prices
 
-> if a single product (e.g. straight accommodation, activity, etc.) or a package whose price is set manually
+## Single Product
 
 ```json
 {
@@ -417,45 +417,11 @@ start_date | no | `2018-02-08` | The start date for the response in `YYYY-MM-DD`
 }
 ```
 
-> if a package whose price is set automatically by its package contents
-
-```json
-{
-  "total_price": 291,
-  "contents": [
-    {
-      "id": 5600,
-      "title": "Room 11 - non sea view",
-      "type": "accommodation",
-      "price": 175
-    },
-    {
-      "id": 2216,
-      "title": "Airport pickup ",
-      "type": "service",
-      "price": 30
-    },
-    {
-      "id": 2271,
-      "title": "Airport dropoff",
-      "type": "service",
-      "price": 30
-    },
-    {
-      "id": 9890,
-      "title": "Surf Guiding package",
-      "type": "bundle",
-      "price": 56
-    }
-  ]
-}
-```
-
-Returns price information for a specific product.
+Returns the total price for a product.
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/products/{id}/prices`
+`GET https://api.bookinglayer.io/pub/v1/products/{id}/prices`
 
 Where `{id}` is the id of the product
 
@@ -468,6 +434,37 @@ start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD
 pax | yes | `2` | Number of guests making the enquiry
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 duration | no | `3` | Duration of the enquiry in the `duration_unit` defined for the product. If nothing is provided the product's `default_duration` will be used
+
+## Multiple Products
+
+```json
+{
+  "329": 12,
+  "125": 456,
+  "789": 123
+}
+```
+
+Returns an object where the keys are product ids for the requested products and values are total prices.
+
+### HTTP Request
+
+`GET https://api.bookinglayer.io/pub/v1/products/prices`
+
+### Query Parameters
+
+Parameter | Required | Example | Description
+--------- | ------- | ------- | -----------
+key | yes | | Your unique API access key.
+start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format.
+pax | yes | `2` | Number of guests making the enquiry
+product_ids | yes | See below | An array of product ids
+duration | yes | `3` | Duration of the enquiry
+currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
+
+Note that the array of product ids should be passed in the form:
+
+`&product_ids[]=329&product_ids[]=125&product_ids[]=789`
 
 # Seasons
 
@@ -510,7 +507,7 @@ Returns seasons for a business.
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/seasons`
+`GET https://api.bookinglayer.io/pub/v1/seasons`
 
 ### Query Parameters
 
@@ -532,7 +529,7 @@ Returns the URL required to link directly to the product in Bookinglayer's front
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/products/{id}/deeplink`
+`GET https://api.bookinglayer.io/pub/v1/products/{id}/deeplink`
 
 Where `{id}` is the id of the product
 
