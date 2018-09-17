@@ -221,66 +221,89 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<p>Hi there! This is a preliminary version of Bookinglayer&rsquo;s Public API docs which we is used to define expected endpoint routes, request payloads and structure of responses.</p>
+<p>Welcome to Bookinglayer&rsquo;s Public API documentation.</p>
 
-<p>This is a work in progress at this stage but we will be actively working to ensure that all the important information required to build a customised enquiry form will be available - if there is anything that you&rsquo;d like to request or any questions that you have, please get in contact at <a href="mailto:tech@bookinglayer.com">tech@bookinglayer.com</a>.</p>
+<p>If you have any questions or requests please send them through to <a href="mailto:ollie@bookinglayer.com">ollie@bookinglayer.com</a>.</p>
 
 <h1 id="request-structure">Request Structure</h1>
 
-<p><code class="prettyprint">https://api.bookinglayer.io/pub/</code> is the root url for all requests to the Public API.</p>
+<p><code class="prettyprint">https://api2.bookinglayer.io/pub/v2/</code> is the root url for all requests to the Public API.</p>
 
 <p>At this stage all parameters are passed to endpoints as URL query parameters. The endpoint definitions below stipulate which parameters are required or optional.</p>
 
 <p>All requests require an API identification key, which is also passed to the endpoint as a URL query parameter: <code class="prettyprint">?key=XXXXXXXX</code>. <a href="mailto:tech@bookinglayer.com">Contact us</a> if you need to be issued an API key.</p>
 
+<aside class="notice">
+TODO: handle authentication with API key in request header
+</aside>
+
 <h1 id="products">Products</h1>
 
 <h2 id="get-all-products">Get All Products</h2>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"categories"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">384</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"package"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Surf Camp"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"extended_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.small.image.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.medium.image.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.large.image.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MF"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Surf Camps"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.image.jpg"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">384</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">745</span><span class="p">]</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"384"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">384</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"package"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Surf Camp"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum."</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"extended_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"category_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"flexible_duration"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"default_duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"duration_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DAY"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"default_start_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"private"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"allowed_checkin_days"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mon,Tue,Fri,Sat,Sun"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MF"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"min_pax"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"max_pax"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"min_duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"duration_variants"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">],</span><span class="w">
-      </span><span class="s2">"has_timeslots"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.small.image.jpg"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.medium.image.jpg"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.large.image.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Surf camps"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kauai, Hawaii"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"room_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"duration"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"is_flexible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"min"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"default"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DAY"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"variants"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">14</span><span class="p">],</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"pax"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"min"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"max"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"default_start_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"is_private"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"allowed_checkin_days"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"Mon"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Tue"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Wed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Thu"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Fri"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Sat"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Sun"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"is_on_timeslots"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price_from"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">199</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"price_from"</span><span class="p">:</span><span class="w"> </span><span class="mi">199</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
+      </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>Returns general information about categories and all available products. Note that products need to be associated with a frontoffice category or set as promoted in order to be returned by this endpoint:</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.bookinglayer.io/pub/products</code></p>
+<p><code class="prettyprint">GET https://api2.bookinglayer.io/pub/v2/products</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
@@ -308,69 +331,82 @@
 <td>language</td>
 <td>no</td>
 <td><code class="prettyprint">es</code></td>
-<td>If translation is available, returns translated fields such as &ldquo;title&rdquo; &amp; &ldquo;description&rdquo; according to language code. If no translation is available then default untranslated values are returned.</td>
+<td>If translation is available, returns translated fields such as &ldquo;title&rdquo; &amp; &ldquo;description&rdquo; according to language code.</td>
+</tr>
+<tr>
+<td>location</td>
+<td>no</td>
+<td><code class="prettyprint">12</code></td>
+<td>Filter results in <code class="prettyprint">products</code> to a particular location</td>
+</tr>
+<tr>
+<td>type</td>
+<td>no</td>
+<td><code class="prettyprint">lesson</code></td>
+<td>Filter results in <code class="prettyprint">products</code> to a particular product type. Product types options are: <code class="prettyprint">package</code>, <code class="prettyprint">accommodation</code>, <code class="prettyprint">lesson</code>, <code class="prettyprint">rental</code>, <code class="prettyprint">service</code>, <code class="prettyprint">bundle</code> and <code class="prettyprint">item</code>.</td>
 </tr>
 </tbody></table>
 
 <h2 id="get-specific-product">Get Specific Product</h2>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">384</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"package"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Surf Camp"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum."</span><span class="p">,</span><span class="w">
   </span><span class="s2">"extended_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"category_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"flexible_duration"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"default_duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"duration_unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DAY"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"default_start_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"private"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"allowed_checkin_days"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mon,Tue,Fri,Sat,Sun"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MF"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"min_pax"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"max_pax"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"min_duration"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"duration_variants"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">],</span><span class="w">
-  </span><span class="s2">"has_timeslots"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.small.image.jpg"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.medium.image.jpg"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.large.image.jpg"</span><span class="p">,</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"price_from"</span><span class="p">:</span><span class="w"> </span><span class="mi">199</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"dates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"2018-05-01"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"allowed_for_checkin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"blocked"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MF"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Surf camps"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kauai, Hawaii"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"room_type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"duration"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"is_flexible"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"min"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"default"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DAY"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"variants"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">14</span><span class="p">],</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"pax"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"min"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"max"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"default_start_time"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"is_private"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"allowed_checkin_days"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"Mon"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Tue"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Wed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Thu"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Fri"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Sat"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Sun"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"is_on_timeslots"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"price_from"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">199</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"2018-05-02"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"allowed_for_checkin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"blocked"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"2018-05-03"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"allowed_for_checkin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"blocked"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"2018-05-04"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"allowed_for_checkin"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"blocked"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Returns information about specific product including <code class="prettyprint">dates</code> information for one month from current date:</p>
+<p>Returns information about specific product.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.bookinglayer.io/pub/products/{id}</code></p>
+<p><code class="prettyprint">GET https://api2.bookinglayer.io/pub/v2/products/{id}</code></p>
 
 <p>Where <code class="prettyprint">{id}</code> is the id of the product</p>
 
@@ -400,7 +436,429 @@
 <td>language</td>
 <td>no</td>
 <td><code class="prettyprint">es</code></td>
-<td>If translation is available, returns translated fields such as &ldquo;title&rdquo; &amp; &ldquo;description&rdquo; according to language code. If no translation is available then default untranslated values are returned.</td>
+<td>If translation is available, returns translated fields such as &ldquo;title&rdquo; &amp; &ldquo;description&rdquo; according to language code.</td>
+</tr>
+</tbody></table>
+
+<h1 id="packages">Packages</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<blockquote>
+<p>simplified overview of response structure</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YYYY-MM-DD"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YYYY-MM-DD"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"single_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">product</span><span class="w"> </span><span class="err">object</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">product</span><span class="w"> </span><span class="err">object</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">product</span><span class="w"> </span><span class="err">object</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">product</span><span class="w"> </span><span class="err">object</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"is_configurable_dates"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="err">product</span><span class="w"> </span><span class="err">object</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="err">product</span><span class="w"> </span><span class="err">object</span><span class="w"> </span><span class="p">},</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Returns package items and information about the way in which a package can be configured.</p>
+
+<p>There are two ways in which package items can be offered for sale:</p>
+
+<ul>
+<li>A single item:
+
+<ul>
+<li>A single item that is sold without any conditional dependencies between it and any other package item</li>
+<li>Returned as an array of product objects in <code class="prettyprint">single_items</code></li>
+</ul></li>
+<li>A group of items:
+
+<ul>
+<li>A number of items where the select state of one item will affect the select state of the others.</li>
+<li>Can either be:
+
+<ul>
+<li>A <code class="prettyprint">default</code>/<code class="prettyprint">alternative</code>/<code class="prettyprint">upgrade</code> group, where the default item is pre-selected and group behaves like a radio button group; or</li>
+<li>A group of <code class="prettyprint">option</code> items where no item is preselected and one or none items may be selected from the group.</li>
+</ul></li>
+<li>Returned as an array of <code class="prettyprint">groups</code>, where each group contains an array of product objects in <code class="prettyprint">items</code>.</li>
+</ul></li>
+</ul>
+
+<p>The product object in <code class="prettyprint">single_items</code> and <code class="prettyprint">groups</code> are of the same structure.</p>
+
+<h2 id="packages-endpoint">Packages Endpoint</h2>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api2.bookinglayer.io/pub/v2/packages/{id}</code></p>
+
+<p>Where <code class="prettyprint">{id}</code> is the id of the package.</p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td>yes</td>
+<td>Your unique API access key.</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>yes</td>
+<td>The start date for the response in <code class="prettyprint">YYYY-MM-DD</code> format.</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>yes</td>
+<td>Duration of the enquiry in nights.</td>
+</tr>
+<tr>
+<td>pax</td>
+<td>yes</td>
+<td>Number of people making the enquiry</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>no</td>
+<td>Currency for returned prices. If not supplied the account&rsquo;s default currency will be used in response.</td>
+</tr>
+<tr>
+<td>language</td>
+<td>no</td>
+<td>If translation is available, returns translated fields such as &ldquo;title&rdquo; &amp; &ldquo;description&rdquo; according to language code.</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>detailed overview of response structure</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-09-01"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-09-04"</span><span class="p">,</span><span class="w">
+
+  </span><span class="s2">"single_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">27299</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"option"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"is_configurable_dates"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3337</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lesson"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Surf lesson on timeslots"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"backoffice_title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Late Surf Session on timeslots"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Maecenas faucibus mollis interdum."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"extended_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.small.image"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.medium.image"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.large.image"</span><span class="p">,</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"is_on_timeslots"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"person"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"from_price"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">      </span><span class="err">&lt;--</span><span class="w"> </span><span class="s2">"this is true if qty or person prices are set for product"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"dates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-01"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">    </span><span class="err">&lt;--</span><span class="w"> </span><span class="s2">"unlimited || number || null if available is defined in `timeslots`"</span><span class="w">
+          </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">     </span><span class="err">&lt;--</span><span class="w"> </span><span class="s2">"unlimited || number || null if capacity is defined in `timeslots`"</span><span class="w">
+          </span><span class="s2">"timeslots"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">        </span><span class="err">&lt;--</span><span class="w"> </span><span class="s2">"null || array of available times for the day for timeslot products"</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10:30"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15:00"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+
+  </span><span class="s2">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"is_configurable_dates"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">27299</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"is_configurable_dates"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3337</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lesson"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Surf Session"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"backoffice_title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Late Surf Session"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Maecenas faucibus mollis interdum."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"extended_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.small.image"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.medium.image"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.large.image"</span><span class="p">,</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"is_on_timeslots"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"person"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"from_price"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"dates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-01"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"timeslots"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">27299</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alternative"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"is_configurable_dates"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3337</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lesson"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Surf Session"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"backoffice_title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Late Surf Session"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Maecenas faucibus mollis interdum."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"extended_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.small.image"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.medium.image"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.large.image"</span><span class="p">,</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"is_on_timeslots"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"person"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"from_price"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"dates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-01"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unlimited"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unlimited"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"timeslots"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h3 id="response-object">Response Object</h3>
+
+<h4 id="root-items">Root items</h4>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>start_date</td>
+<td>The start date in <code class="prettyprint">YYYY-MM-DD</code> format</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>The end date in <code class="prettyprint">YYYY-MM-DD</code> format</td>
+</tr>
+<tr>
+<td>single_items</td>
+<td>An array of package items that have no relation to other package items</td>
+</tr>
+<tr>
+<td>groups</td>
+<td>An array containing information regarding grouped package items.</td>
+</tr>
+</tbody></table>
+
+<h4 id="package-items">Package items</h4>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Uniquely identifies the package item</td>
+</tr>
+<tr>
+<td>role</td>
+<td><code class="prettyprint">default</code>, <code class="prettyprint">alternative</code> or <code class="prettyprint">option</code> (see more details below)</td>
+</tr>
+<tr>
+<td>product</td>
+<td>Object of product details</td>
+</tr>
+<tr>
+<td>qty</td>
+<td>Object with min, max and default quantities for the package item</td>
+</tr>
+<tr>
+<td>price</td>
+<td>Price object (see below)</td>
+</tr>
+<tr>
+<td>is_configurable_dates</td>
+<td>Bool which sets whether the available dates in <code class="prettyprint">dates</code> can be individually configured. If <code class="prettyprint">true</code> then each date in <code class="prettyprint">dates</code> can be individually selected/deselected. If <code class="prettyprint">false</code> then package item should be presented as a checkbox.</td>
+</tr>
+<tr>
+<td>dates</td>
+<td>Array of dates that the package item is available on. Be sure to reference <code class="prettyprint">configurable_dates</code> to know whether the package item has the ability to be configured. See below for more details on <code class="prettyprint">dates</code> structure.</td>
+</tr>
+</tbody></table>
+
+<h1 id="accommodation">Accommodation</h1>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">  
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-08-01"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"end"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-08-08"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"person"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">384</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"accommodation"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Double room"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum."</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"extended_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"small"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.small.image.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"medium"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.medium.image.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"large"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://url.to.large.image.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MF"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Surf camps"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"location"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kauai, Hawaii"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"room_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1345</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Double Room"</span><span class="p">,</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pax"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"min"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"max"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"is_private"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>Returns an array of accommodation options for a package.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api2.bookinglayer.io/pub/v2/packages/{id}/accommodations</code></p>
+
+<p>Where <code class="prettyprint">{id}</code> is the id of the package which contains the accommodation options.</p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td>yes</td>
+<td></td>
+<td>Your unique API access key.</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>yes</td>
+<td><code class="prettyprint">2019-02-08</code></td>
+<td>The start date for the response in <code class="prettyprint">YYYY-MM-DD</code> format.</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>yes</td>
+<td><code class="prettyprint">3</code></td>
+<td>Duration of the enquiry in nights.</td>
+</tr>
+<tr>
+<td>males</td>
+<td>yes</td>
+<td><code class="prettyprint">2</code></td>
+<td>Number of males making the enquiry</td>
+</tr>
+<tr>
+<td>females</td>
+<td>yes</td>
+<td><code class="prettyprint">2</code></td>
+<td>Number of females making the enquiry</td>
+</tr>
+<tr>
+<td>couples</td>
+<td>yes</td>
+<td><code class="prettyprint">0</code></td>
+<td>Number of couples making the enquiry</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>no</td>
+<td><code class="prettyprint">EUR</code></td>
+<td>Currency for returned prices. If not supplied the account&rsquo;s default currency will be used in response.</td>
 </tr>
 </tbody></table>
 
@@ -412,28 +870,32 @@
 <p>Response for package, accommodation, unscheduled and single date activities, services &amp; rentals:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"2018-05-01"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"2019-05-01"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"allowed_for_checkin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"blocked"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
     </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
     </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"2018-05-02"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"2019-05-02"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"allowed_for_checkin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"blocked"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
     </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"2018-05-03"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"2019-05-03"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"allowed_for_checkin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"blocked"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
     </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"2018-05-04"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"2019-05-04"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"allowed_for_checkin"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
     </span><span class="s2">"blocked"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
     </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
     </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -442,29 +904,35 @@
 <p>Response for activities on timeslots:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"2018-05-01"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"10:00"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+  </span><span class="s2">"2019-05-01"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="s2">"13:00"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"13:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
       </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"2018-05-02"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"2019-05-02"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"blocked"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"2018-05-03"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"17:30"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+  </span><span class="s2">"2019-05-03"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"15:30"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"available"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"capacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
       </span><span class="p">}</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"2018-05-04"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="s2">"2019-05-04"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"time_slots"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -479,7 +947,7 @@
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.bookinglayer.io/pub/products/availability/{id}</code></p>
+<p><code class="prettyprint">GET https://api2.bookinglayer.io/pub/v2/products/{id}/availabilities</code></p>
 
 <p>Where <code class="prettyprint">{id}</code> is the id of the product</p>
 
@@ -502,21 +970,23 @@
 <tr>
 <td>start_date</td>
 <td>no</td>
-<td><code class="prettyprint">2018-02-08</code></td>
+<td><code class="prettyprint">2019-02-08</code></td>
 <td>The start date for the response in <code class="prettyprint">YYYY-MM-DD</code> format. If not provided then the current date will be taken as the start date.</td>
 </tr>
 </tbody></table>
 
 <h1 id="prices">Prices</h1>
+
+<h2 id="single-product">Single Product</h2>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"total_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Returns price information for a specific product.</p>
+<p>Returns the total price for a product.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.bookinglayer.io/pub/products/prices/{id}</code></p>
+<p><code class="prettyprint">GET https://api2.bookinglayer.io/pub/v2/products/{id}/prices</code></p>
 
 <p>Where <code class="prettyprint">{id}</code> is the id of the product</p>
 
@@ -539,7 +1009,7 @@
 <tr>
 <td>start_date</td>
 <td>yes</td>
-<td><code class="prettyprint">2018-02-08</code></td>
+<td><code class="prettyprint">2019-02-08</code></td>
 <td>The start date for the response in <code class="prettyprint">YYYY-MM-DD</code> format.</td>
 </tr>
 <tr>
@@ -562,16 +1032,141 @@
 </tr>
 </tbody></table>
 
-<h1 id="deeplink-url-to-product">Deeplink URL to Product</h1>
+<h2 id="multiple-products">Multiple Products</h2>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://yourbusiness.bookinglayer.io/frontoffice/product/384?start='2018-03-02'&amp;duration=4&amp;male=2"</span><span class="w">
+  </span><span class="s2">"329"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"125"</span><span class="p">:</span><span class="w"> </span><span class="mi">456</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"789"</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Returns an object where the keys are product ids for the requested products and values are total prices.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api2.bookinglayer.io/pub/v2/products/prices</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td>yes</td>
+<td></td>
+<td>Your unique API access key.</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>yes</td>
+<td><code class="prettyprint">2019-02-08</code></td>
+<td>The start date for the response in <code class="prettyprint">YYYY-MM-DD</code> format.</td>
+</tr>
+<tr>
+<td>pax</td>
+<td>yes</td>
+<td><code class="prettyprint">2</code></td>
+<td>Number of guests making the enquiry</td>
+</tr>
+<tr>
+<td>product_ids</td>
+<td>yes</td>
+<td>See below</td>
+<td>An array of product ids</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>yes</td>
+<td><code class="prettyprint">3</code></td>
+<td>Duration of the enquiry</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>no</td>
+<td><code class="prettyprint">EUR</code></td>
+<td>Currency for returned prices. If not supplied the account&rsquo;s default currency will be used in response.</td>
+</tr>
+</tbody></table>
+
+<p>Note that the array of product ids should be passed in the form:</p>
+
+<p><code class="prettyprint">&amp;product_ids[]=329&amp;product_ids[]=125&amp;product_ids[]=789</code></p>
+
+<h1 id="seasons">Seasons</h1>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"High"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"segments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">138</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1900-01-01"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1900-04-29"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"season_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">139</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1900-08-01"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1900-12-31"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"season_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">81</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Low"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"segments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">137</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"from_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1900-05-30"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"to_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1900-07-31"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"season_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">81</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>Returns array of seasons and season segments for a business.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api2.bookinglayer.io/pub/v2/seasons</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>key</td>
+<td>yes</td>
+<td></td>
+<td>Your unique API access key.</td>
+</tr>
+</tbody></table>
+
+<h1 id="deeplinking">Deeplinking</h1>
+
+<h2 id="deeplink-url-to-product">Deeplink URL to Product</h2>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://yourbusiness.bookinglayer.io/frontoffice/product/384?start='2019-03-02'&amp;duration=4&amp;male=2"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Returns the URL required to link directly to the product in Bookinglayer&rsquo;s frontoffice booking form, including all start date, end date, duration and pax settings.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api.bookinglayer.io/pub/deeplink/{id}</code></p>
+<p><code class="prettyprint">GET https://api2.bookinglayer.io/pub/v2/products/{id}/deeplink</code></p>
 
 <p>Where <code class="prettyprint">{id}</code> is the id of the product</p>
 
@@ -600,7 +1195,7 @@
 <tr>
 <td>start_date</td>
 <td>no</td>
-<td><code class="prettyprint">2018-02-08</code></td>
+<td><code class="prettyprint">2019-02-08</code></td>
 <td>The start date in <code class="prettyprint">YYYY-MM-DD</code> format.</td>
 </tr>
 <tr>
@@ -612,7 +1207,7 @@
 <tr>
 <td>end_date</td>
 <td>no</td>
-<td><code class="prettyprint">2018-02-20</code></td>
+<td><code class="prettyprint">2019-02-20</code></td>
 <td>The end date in <code class="prettyprint">YYYY-MM-DD</code> format.</td>
 </tr>
 <tr>
