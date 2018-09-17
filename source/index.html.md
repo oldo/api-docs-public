@@ -12,79 +12,92 @@ search: true
 
 # Introduction
 
-Hi there! This is a preliminary version of Bookinglayer's Public API docs which is used to define expected endpoint routes, request payloads and structure of responses.
+Welcome to Bookinglayer's Public API documentation.
 
-This is a work in progress at this stage but we will be actively working to ensure that all the important information required to build a customised enquiry form will be available - if there is anything that you'd like to request or any questions that you have, please get in contact at [tech@bookinglayer.com](mailto:tech@bookinglayer.com).
-
-We will also be working to further define the various objects that are returned by the API to give the developer a full understanding on what each field represents.
+If you have any questions or requests please send them through to [ollie@bookinglayer.com](mailto:ollie@bookinglayer.com).
 
 # Request Structure
 
-`https://api.bookinglayer.io/pub/v1/` is the root url for all requests to the Public API.
+`https://api2.bookinglayer.io/pub/v2/` is the root url for all requests to the Public API.
 
 At this stage all parameters are passed to endpoints as URL query parameters. The endpoint definitions below stipulate which parameters are required or optional.
 
 All requests require an API identification key, which is also passed to the endpoint as a URL query parameter: `?key=XXXXXXXX`. [Contact us](mailto:tech@bookinglayer.com) if you need to be issued an API key.
+
+<aside class="notice">
+TODO: handle authentication with API key in request header
+</aside>
 
 # Products
 
 ## Get All Products
 
 ```json
-{
-  "categories": {
-    "1": {
+[
+  {
+    "id": 384,
+    "type": "package",
+    "title": "Surf Camp",
+    "description": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
+    "extended_description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+    "image": {
+      "small": "https://url.to.small.image.jpg",
+      "medium": "https://url.to.medium.image.jpg",
+      "large": "https://url.to.large.image.jpg",
+    },
+    "gender": "MF",
+    "category": {
       "id": 1,
-      "title": "Surf Camps",
-      "image": "https://url.to.image.jpg",
-      "products": [384, 12, 745]
-    }
-  },
-  "locations": {
-    "12": {
+      "title": "Surf camps"
+    },
+    "location": {
       "id": 12,
-      "title": "Costa Rica",
-      "products": [384, 42]
-    }
-  },
-  "products": {
-    "384": {
-      "id": 384,
-      "type": "package",
-      "title": "Surf Camp",
-      "description": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
-      "extended_description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
-      "category_id": 1,
-      "location_id": 12,
-      "capacity": 10,
-      "flexible_duration": true,
-      "default_duration": 7,
-      "duration_unit": "DAY",
-      "default_start_time": null,
-      "private": false,
-      "allowed_checkin_days": "Mon,Tue,Fri,Sat,Sun",
-      "gender": "MF",
-      "min_pax": 1,
-      "max_pax": 12,
-      "min_duration": 7,
-      "duration_variants": [2, 6, 10],
-      "has_timeslots": false,
-      "image": {
-        "small": "https://url.to.small.image.jpg",
-        "medium": "https://url.to.medium.image.jpg",
-        "large": "https://url.to.large.image.jpg",
+      "title": "Kauai, Hawaii"
+    },
+    "room_type": null,
+    "capacity": 10,
+    "duration": {
+      "is_flexible": true,
+      "min": 7,
+      "default": 7,
+      "unit": "DAY",
+      "variants": [7, 10, 14],
+    },
+    "pax": {
+      "min": 1,
+      "max": 12,
+    },
+    "default_start_time": null,
+    "is_private": false,
+    "allowed_checkin_days": {
+      "Mon": true,
+      "Tue": false,
+      "Wed": true,
+      "Thu": true,
+      "Fri": false,
+      "Sat": true,
+      "Sun": false
+    },
+    "is_on_timeslots": false,
+    "price_from": [
+      {
+        "value": 199,
+        "currency": "EUR"
       },
-      "price_from": 199
-    }
-  }
-}
+      { ... }
+    ]
+  },
+  { ... },
+  { ... },
+  { ... }
+]
 ```
 
 Returns general information about categories and all available products. Note that products need to be associated with a frontoffice category or set as promoted in order to be returned by this endpoint:
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/v1/products`
+`GET https://api2.bookinglayer.io/pub/v2/products`
 
 ### Query Parameters
 
@@ -92,7 +105,7 @@ Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
 key | yes | | Your unique API access key.
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
-language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code. If no translation is available then default untranslated values are returned.
+language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code.
 location | no | `12` | Filter results in `products` to a particular location
 type | no | `lesson` | Filter results in `products` to a particular product type. Product types options are: `package`, `accommodation`, `lesson`, `rental`, `service`, `bundle` and `item`.
 
@@ -101,64 +114,64 @@ type | no | `lesson` | Filter results in `products` to a particular product type
 ```json
 {
   "id": 384,
+  "type": "package",
   "title": "Surf Camp",
   "description": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
   "extended_description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
-  "category_id": 1,
-  "location_id": 12,
-  "capacity": 10,
-  "flexible_duration": true,
-  "default_duration": 7,
-  "duration_unit": "DAY",
-  "default_start_time": null,
-  "private": false,
-  "allowed_checkin_days": "Mon,Tue,Fri,Sat,Sun",
-  "gender": "MF",
-  "min_pax": 1,
-  "max_pax": 12,
-  "min_duration": 7,
-  "duration_variants": [2, 6, 10],
-  "has_timeslots": false,
   "image": {
     "small": "https://url.to.small.image.jpg",
     "medium": "https://url.to.medium.image.jpg",
     "large": "https://url.to.large.image.jpg",
   },
-  "price_from": 199,
-  "dates": {
-    "2018-05-01": {
-      "allowed_for_checkin": true,
-      "blocked": false,
-      "available": 6,
-      "time_slots": null
+  "gender": "MF",
+  "category": {
+    "id": 1,
+    "title": "Surf camps"
+  },
+  "location": {
+    "id": 12,
+    "title": "Kauai, Hawaii"
+  },
+  "room_type": null,
+  "capacity": 10,
+  "duration": {
+    "is_flexible": false,
+    "min": 7,
+    "default": 7,
+    "unit": "DAY",
+    "variants": [7, 10, 14],
+  },
+  "pax": {
+    "min": 1,
+    "max": 12,
+  },
+  "default_start_time": null,
+  "is_private": false,
+  "allowed_checkin_days": {
+    "Mon": true,
+    "Tue": false,
+    "Wed": true,
+    "Thu": true,
+    "Fri": false,
+    "Sat": true,
+    "Sun": false
+  },
+  "is_on_timeslots": false,
+  "price_from": [
+    {
+      "value": 199,
+      "currency": "EUR"
     },
-    "2018-05-02": {
-      "allowed_for_checkin": true,
-      "blocked": true,
-      "available": 6,
-      "time_slots": null
-    },
-    "2018-05-03": {
-      "allowed_for_checkin": true,
-      "blocked": true,
-      "available": 6,
-      "time_slots": null
-    },
-    "2018-05-04": {
-      "allowed_for_checkin": false,
-      "blocked": false,
-      "available": 5,
-      "time_slots": null
-    }
-  }
+    { ... }
+  ]
 }
 ```
 
-Returns information about specific product including `dates` information for one month from current date:
+Returns information about specific product.
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/v1/products/{id}`
+`GET https://api2.bookinglayer.io/pub/v2/products/{id}`
 
 Where `{id}` is the id of the product
 
@@ -168,136 +181,286 @@ Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
 key | yes | | Your unique API access key.
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
-language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code. If no translation is available then default untranslated values are returned.
+language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code.
 
 # Packages
 
-## Package Extras & Daily Configuration
+## Introduction
+
+> simplified overview of response structure
 
 ```json
 {
-  "extras": [
-    {
-      "product_id": 396,
-      "product_type": "service",
-      "type": "option",
-      "title": "Pharetra Quam Dolor",
-      "description": "Integer posuere erat a ante venenatis dapibus posuere velit aliquet.",
-      "extended_description": "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Nullam quis risus eget urna mollis ornare vel eu leo.",
-      "translated": null,
-      "price": 35,
-      "image": {
-        "small": "https://url.to.small.image.jpg",
-        "medium": "https://url.to.medium.image.jpg",
-        "large": "https://url.to.large.image.jpg",
-      },
-      "request_qty": false,
-      "default_qty": 1,
-      "min_qty": 0,
-      "max_qty": 8,
-      "pricing": "fixed"
-    }
+  "start_date": "YYYY-MM-DD",
+  "end_date": "YYYY-MM-DD",
+  "single_items": [
+    { product object },
+    { product object },
+    { product object },
+    { product object }
   ],
-  "daily_configuration": {
-    "2017-10-10": [
-      {
-        "product_id": 412,
-        "type": "default",
-        "title": "Pellentesque Aenean",
-        "description": "Donec ullamcorper nulla non metus auctor fringilla.",
-        "extended_description": "Cras mattis consectetur purus sit amet fermentum. Etiam porta sem malesuada magna mollis euismod.",
-        "price": 0,
-        "image": {
-          "small": "https://url.to.small.image.jpg",
-          "medium": "https://url.to.medium.image.jpg",
-          "large": "https://url.to.large.image.jpg",
-        },
-        "request_qty": false,
-        "default_qty": 1,
-        "min_qty": 0,
-        "max_qty": 8,
-      },
-      {
-        "product_id": 456,
-        "type": "option",
-        "title": "Tristique Fermentum",
-        "description": "Integer posuere erat a ante venenatis dapibus posuere velit aliquet.",
-        "extended_description": "Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.",
-        "price": 42,
-        "image": {
-          "small": "https://url.to.small.image.jpg",
-          "medium": "https://url.to.medium.image.jpg",
-          "large": "https://url.to.large.image.jpg",
-        },
-        "request_qty": false,
-        "default_qty": 1,
-        "min_qty": 0,
-        "max_qty": 8,
-      }
-    ]
-  }
+  "groups": [
+    {
+      "is_configurable_dates": true,
+      "items": [
+        { product object },
+        { product object },
+      ]
+    },
+    { ... },
+    { ... }
+  ]
 }
 ```
 
-Returns two objects relevant to a package:
+Returns package items and information about the way in which a package can be configured.
 
-* an array of extras; and
-* daily configuration options.
+There are two ways in which package items can be offered for sale:
 
-Note that `type` can have one of the following values:
+* A single item:
+  * A single item that is sold without any conditional dependencies between it and any other package item
+  * Returned as an array of product objects in `single_items`
+* A group of items:
+  * A number of items where the select state of one item will affect the select state of the others.
+  * Can either be:
+      * A `default`/`alternative`/`upgrade` group, where the default item is pre-selected and group behaves like a radio button group; or
+      * A group of `option` items where no item is preselected and one or none items may be selected from the group.
+  * Returned as an array of `groups`, where each group contains an array of product objects in `items`.
 
-* `default`: included in the package by default;
-* `alternative`: an item that can be selected as an alternative to the default option at no extra expense;
-* `upgrade`: an item that can be selected as an alternative to the default option at an additional expense; and
-* `option`: an optional extra that can be added to the package.
+The product object in `single_items` and `groups` are of the same structure.
+
+## Packages Endpoint
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/v1/packages/{id}`
+`GET https://api2.bookinglayer.io/pub/v2/packages/{id}`
 
 Where `{id}` is the id of the package.
 
 ### Query Parameters
 
-Parameter | Required | Example | Description
---------- | ------- | ------- | -----------
-key | yes | | Your unique API access key.
-start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format.
-duration | yes | `3` | Duration of the enquiry in nights.
-pax | yes | `2` | Number of people making the enquiry
-currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
+Parameter | Required | Description
+--------- | ------- | -----------
+key | yes | Your unique API access key.
+start_date | yes | The start date for the response in `YYYY-MM-DD` format.
+duration | yes | Duration of the enquiry in nights.
+pax | yes | Number of people making the enquiry
+currency | no | Currency for returned prices. If not supplied the account's default currency will be used in response.
+language | no | If translation is available, returns translated fields such as "title" & "description" according to language code.
 
-## Accommodation
+> detailed overview of response structure
+
+```json
+{
+  "start_date": "2019-09-01",
+  "end_date": "2019-09-04",
+
+  "single_items": [
+    {
+      "id": 27299,
+      "role": "option",
+      "is_configurable_dates": true,
+      "product": {
+        "id": 3337,
+        "type": "lesson",
+        "title": "Surf lesson on timeslots",
+        "backoffice_title": "Late Surf Session on timeslots",
+        "description": "Maecenas faucibus mollis interdum.",
+        "extended_description": "Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum.",
+        "image": {
+          "small": "https://url.to.small.image",
+          "medium": "https://url.to.medium.image",
+          "large": "https://url.to.large.image",
+        },
+        "is_on_timeslots": true,
+        "price": {
+          "value": 10,
+          "currency": "EUR",
+          "type": "person",
+          "from_price": true      <-- "this is true if qty or person prices are set for product"
+        }
+      },
+      "dates": [
+        {
+          "date": "2019-10-01",
+          "available": null,    <-- "unlimited || number || null if available is defined in `timeslots`"
+          "capacity": null,     <-- "unlimited || number || null if capacity is defined in `timeslots`"
+          "timeslots": [        <-- "null || array of available times for the day for timeslot products"
+            {
+              "time": "10:30",
+              "available": 10,
+              "capacity": 10,
+            },
+            {
+              "time": "15:00",
+              "available": 7,
+              "capacity": 10,
+            }
+          ]
+        },
+        { ... },
+        { ... }
+      ],
+    },
+    { ... },
+    { ... },
+    { ... }
+  ],
+  
+  "groups": [
+    {
+      "is_configurable_dates": true,
+      "items": [
+        {
+          "id": 27299,
+          "role": "default",
+          "is_configurable_dates": true,
+          "product": {
+            "id": 3337,
+            "type": "lesson",
+            "title": "Surf Session",
+            "backoffice_title": "Late Surf Session",
+            "description": "Maecenas faucibus mollis interdum.",
+            "extended_description": "Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum.",
+            "image": {
+              "small": "https://url.to.small.image",
+              "medium": "https://url.to.medium.image",
+              "large": "https://url.to.large.image",
+            },
+            "is_on_timeslots": false,
+            "price": {
+              "value": 10,
+              "currency": "EUR",
+              "type": "person",
+              "from_price": true
+            },
+          },
+          "dates": [
+            {
+              "date": "2019-10-01",
+              "available": 10,
+              "capacity": 15,
+              "timeslots": null
+            },
+            { ... },
+            { ... }
+          ],
+        },
+        {
+          "id": 27299,
+          "role": "alternative",
+          "is_configurable_dates": true,
+          "product": {
+            "id": 3337,
+            "type": "lesson",
+            "title": "Surf Session",
+            "backoffice_title": "Late Surf Session",
+            "description": "Maecenas faucibus mollis interdum.",
+            "extended_description": "Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum.",
+            "image": {
+              "small": "https://url.to.small.image",
+              "medium": "https://url.to.medium.image",
+              "large": "https://url.to.large.image",
+            },
+            "is_on_timeslots": false,
+            "price": {
+              "value": 10,
+              "currency": "EUR",
+              "type": "person",
+              "from_price": true
+            },
+          },
+          "dates": [
+            {
+              "date": "2019-10-01",
+              "available": "unlimited",
+              "capacity": "unlimited",
+              "timeslots": null
+            },
+            { ... },
+            { ... }
+          ],
+        }
+      ]
+    },
+    { ... },
+    { ... },
+    { ... }
+  ]
+}
+```
+
+### Response Object
+
+#### Root items
+
+Attribute | Description
+--------- | -----------
+start_date | The start date in `YYYY-MM-DD` format
+end_date | The end date in `YYYY-MM-DD` format
+single_items | An array of package items that have no relation to other package items
+groups | An array containing information regarding grouped package items.
+
+#### Package items
+
+Attribute | Description
+--------- | -----------
+id | Uniquely identifies the package item
+role | `default`, `alternative` or `option` (see more details below)
+product | Object of product details
+qty | Object with min, max and default quantities for the package item
+price | Price object (see below)
+is_configurable_dates | Bool which sets whether the available dates in `dates` can be individually configured. If `true` then each date in `dates` can be individually selected/deselected. If `false` then package item should be presented as a checkbox.
+dates | Array of dates that the package item is available on. Be sure to reference `configurable_dates` to know whether the package item has the ability to be configured. See below for more details on `dates` structure.
+
+# Accommodation
 
 ```json
 [  
   {
-    "id": 392,
-    "title": "Surfside Dowm",
-    "description": "Sed posuere consectetur est at lobortis",
-    "room_type_id": 1345,
-    "room_type_title": "Double Room",
-    "location_id": 12,
     "start": "2017-08-01",
     "end": "2017-08-08",
-    "pax": {
-      "males": 2,
-      "females": 3,
-      "couples": 0
+    "available": 2,
+    "price": {
+      "type": "person",
+      "value": 200,
+      "currency": "EUR"
     },
-    "pricing": "person",
-    "image":  {
-      "small":  "https://url.to.small.image.jpg",
-      "medium":  "https://url.to.medium.image.jpg",
-      "large":  "https://url.to.large.image.jpg",
-    },
-    "item_type": "upgrade",
-    "price": 200,
-    "upgrade_price": 120,
-    "srs": true,
-    "srs_charge": 252,
-    "variant_id": null
-  }
+    "product": {
+      "id": 384,
+      "type": "accommodation",
+      "title": "Double room",
+      "description": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
+      "extended_description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+      "image": {
+        "small": "https://url.to.small.image.jpg",
+        "medium": "https://url.to.medium.image.jpg",
+        "large": "https://url.to.large.image.jpg",
+      },
+      "gender": "MF",
+      "category": {
+        "id": 1,
+        "title": "Surf camps"
+      },
+      "location": {
+        "id": 12,
+        "title": "Kauai, Hawaii"
+      },
+      "room_type": {
+        "id": 1345,
+        "title": "Double Room",
+      },
+      "capacity": 2,
+      "pax": {
+        "min": 1,
+        "max": 2,
+      },
+      "is_private": false,
+    }
+  },
+  { ... },
+  { ... },
+  { ... }
 ]
 ```
 
@@ -305,7 +468,7 @@ Returns an array of accommodation options for a package.
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/v1/packages/{id}/accommodations`
+`GET https://api2.bookinglayer.io/pub/v2/packages/{id}/accommodations`
 
 Where `{id}` is the id of the package which contains the accommodation options.
 
@@ -314,7 +477,7 @@ Where `{id}` is the id of the package which contains the accommodation options.
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
 key | yes | | Your unique API access key.
-start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format.
+start_date | yes | `2019-02-08` | The start date for the response in `YYYY-MM-DD` format.
 duration | yes | `3` | Duration of the enquiry in nights.
 males | yes | `2` | Number of males making the enquiry
 females | yes | `2` | Number of females making the enquiry
@@ -329,28 +492,32 @@ currency | no | `EUR` | Currency for returned prices. If not supplied the accoun
 
 ```json
 {
-  "2018-05-01": {
+  "2019-05-01": {
     "allowed_for_checkin": true,
     "blocked": false,
     "available": 6,
+    "capacity": 8,
     "time_slots": null
   },
-  "2018-05-02": {
+  "2019-05-02": {
     "allowed_for_checkin": true,
     "blocked": true,
     "available": 6,
+    "capacity": 8,
     "time_slots": null
   },
-  "2018-05-03": {
+  "2019-05-03": {
     "allowed_for_checkin": true,
     "blocked": true,
     "available": 6,
+    "capacity": 8,
     "time_slots": null
   },
-  "2018-05-04": {
+  "2019-05-04": {
     "allowed_for_checkin": false,
     "blocked": false,
     "available": 5,
+    "capacity": 8,
     "time_slots": null
   }
 }
@@ -360,29 +527,35 @@ currency | no | `EUR` | Currency for returned prices. If not supplied the accoun
 
 ```json
 {
-  "2018-05-01": {
-    "time_slots": {
-      "10:00": {
-        "available": 10
+  "2019-05-01": {
+    "time_slots": [
+      {
+        "time": "10:00",
+        "available": 10,
+        "capacity": 10
       },
-      "13:00": {
-        "available": 5
+      {
+        "time": "13:00",
+        "available": 5,
+        "capacity": 10
       }
-    }
+    ]
   },
-  "2018-05-02": {
+  "2019-05-02": {
     "blocked": true,
-    "time_slots": null
+    "time_slots": []
   },
-  "2018-05-03": {
-    "time_slots": {
-      "17:30": {
-        "available": 10
+  "2019-05-03": {
+    "time_slots": [
+      {
+        "time": "15:30",
+        "available": 10,
+        "capacity": 10
       }
-    }
+    ]
   },
-  "2018-05-04": {
-    "time_slots": null
+  "2019-05-04": {
+    "time_slots": []
   }
 }
 ```
@@ -396,7 +569,7 @@ Note that the flag for whether the product is on timeslots is returned as part o
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/v1/products/{id}/availabilities`
+`GET https://api2.bookinglayer.io/pub/v2/products/{id}/availabilities`
 
 Where `{id}` is the id of the product
 
@@ -405,7 +578,7 @@ Where `{id}` is the id of the product
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
 key | yes | | Your unique API access key.
-start_date | no | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format. If not provided then the current date will be taken as the start date.
+start_date | no | `2019-02-08` | The start date for the response in `YYYY-MM-DD` format. If not provided then the current date will be taken as the start date.
 
 # Prices
 
@@ -421,7 +594,7 @@ Returns the total price for a product.
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/v1/products/{id}/prices`
+`GET https://api2.bookinglayer.io/pub/v2/products/{id}/prices`
 
 Where `{id}` is the id of the product
 
@@ -430,7 +603,7 @@ Where `{id}` is the id of the product
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
 key | yes | | Your unique API access key.
-start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format.
+start_date | yes | `2019-02-08` | The start date for the response in `YYYY-MM-DD` format.
 pax | yes | `2` | Number of guests making the enquiry
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 duration | no | `3` | Duration of the enquiry in the `duration_unit` defined for the product. If nothing is provided the product's `default_duration` will be used
@@ -449,14 +622,14 @@ Returns an object where the keys are product ids for the requested products and 
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/v1/products/prices`
+`GET https://api2.bookinglayer.io/pub/v2/products/prices`
 
 ### Query Parameters
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
 key | yes | | Your unique API access key.
-start_date | yes | `2018-02-08` | The start date for the response in `YYYY-MM-DD` format.
+start_date | yes | `2019-02-08` | The start date for the response in `YYYY-MM-DD` format.
 pax | yes | `2` | Number of guests making the enquiry
 product_ids | yes | See below | An array of product ids
 duration | yes | `3` | Duration of the enquiry
@@ -469,45 +642,45 @@ Note that the array of product ids should be passed in the form:
 # Seasons
 
 ```json
-{
-  "80": {
+[
+  {
     "id": 80,
     "title": "High",
-    "season_segments": [
+    "segments": [
       {
         "id": 138,
-        "from": "1900-01-01T00:00:00+0000",
-        "to": "1900-04-29T00:00:00+0000",
+        "from": "1900-01-01",
+        "to": "1900-04-29",
         "season_id": 80
       },
       {
         "id": 139,
-        "from": "1900-08-01T00:00:00+0000",
-        "to": "1900-12-31T00:00:00+0000",
+        "from": "1900-08-01",
+        "to": "1900-12-31",
         "season_id": 80
       }
     ]
   },
-  "81": {
+  {
     "id": 81,
     "title": "Low",
-    "season_segments": [
+    "segments": [
       {
         "id": 137,
-        "from_date": "1900-05-30T00:00:00+0000",
-        "to_date": "1900-07-31T00:00:00+0000",
+        "from_date": "1900-05-30",
+        "to_date": "1900-07-31",
         "season_id": 81
       }
     ]
   }
-}
+]
 ```
 
-Returns seasons for a business.
+Returns array of seasons and season segments for a business.
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/v1/seasons`
+`GET https://api2.bookinglayer.io/pub/v2/seasons`
 
 ### Query Parameters
 
@@ -521,7 +694,7 @@ key | yes | | Your unique API access key.
 
 ```json
 {
-  "url": "https://yourbusiness.bookinglayer.io/frontoffice/product/384?start='2018-03-02'&duration=4&male=2"
+  "url": "https://yourbusiness.bookinglayer.io/frontoffice/product/384?start='2019-03-02'&duration=4&male=2"
 }
 ```
 
@@ -529,7 +702,7 @@ Returns the URL required to link directly to the product in Bookinglayer's front
 
 ### HTTP Request
 
-`GET https://api.bookinglayer.io/pub/v1/products/{id}/deeplink`
+`GET https://api2.bookinglayer.io/pub/v2/products/{id}/deeplink`
 
 Where `{id}` is the id of the product
 
@@ -539,9 +712,9 @@ Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
 key | yes | | Your unique API access key.
 product_id | yes | `384` | The product id.
-start_date | no | `2018-02-08` | The start date in `YYYY-MM-DD` format.
+start_date | no | `2019-02-08` | The start date in `YYYY-MM-DD` format.
 duration | no | `3` | Duration of the enquiry in the `duration_unit` defined for the product.
-end_date | no | `2018-02-20` | The end date in `YYYY-MM-DD` format.
+end_date | no | `2019-02-20` | The end date in `YYYY-MM-DD` format.
 males | no | `2` | Number of males.
 females | no | `3` | Number of females.
 couples | no | `1` | Number of couples.
