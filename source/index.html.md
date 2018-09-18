@@ -38,6 +38,7 @@ TODO: handle authentication with API key in request header
     "id": 384,
     "type": "package",
     "title": "Surf Camp",
+    "backoffice_title": "Advanced Surf Camp",
     "description": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
     "extended_description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
     "image": {
@@ -115,6 +116,7 @@ type | no | `lesson` | Filter results in `products` to a particular product type
   "id": 384,
   "type": "package",
   "title": "Surf Camp",
+  "backoffice_title": "Advanced Surf Camp",
   "description": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
   "extended_description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
   "image": {
@@ -262,7 +264,7 @@ language | no | If translation is available, returns translated fields such as "
         "id": 3337,
         "type": "lesson",
         "title": "Surf lesson on timeslots",
-        "backoffice_title": "Late Surf Session on timeslots",
+        "backoffice_title": "Advanced Surf Lesson",
         "description": "Maecenas faucibus mollis interdum.",
         "extended_description": "Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum.",
         "image": {
@@ -428,6 +430,7 @@ dates | Array of dates that the package item is available on. Be sure to referen
       "id": 384,
       "type": "accommodation",
       "title": "Double room",
+      "backoffice_title": "Room 13A",
       "description": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.",
       "extended_description": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
       "image": {
