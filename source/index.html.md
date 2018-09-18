@@ -45,7 +45,7 @@ TODO: handle authentication with API key in request header
       "medium": "https://url.to.medium.image.jpg",
       "large": "https://url.to.large.image.jpg",
     },
-    "gender": "MF",
+    "gender": "mf",
     "category": {
       "id": 1,
       "title": "Surf camps"
@@ -54,29 +54,28 @@ TODO: handle authentication with API key in request header
       "id": 12,
       "title": "Kauai, Hawaii"
     },
-    "room_type": null,
-    "capacity": 10,
+    "accommodation_type": null,
     "duration": {
       "is_flexible": true,
       "min": 7,
       "default": 7,
-      "unit": "DAY",
+      "unit": "day",
       "variants": [7, 10, 14],
     },
     "pax": {
       "min": 1,
-      "max": 12,
+      "max": 10,
     },
     "default_start_time": null,
     "is_private": false,
     "allowed_checkin_days": {
-      "Mon": true,
-      "Tue": false,
-      "Wed": true,
-      "Thu": true,
-      "Fri": false,
-      "Sat": true,
-      "Sun": false
+      "mon": true,
+      "tue": false,
+      "wed": true,
+      "thu": true,
+      "fri": false,
+      "sat": true,
+      "sun": false
     },
     "is_on_timeslots": false,
     "price_from": [
@@ -123,7 +122,7 @@ type | no | `lesson` | Filter results in `products` to a particular product type
     "medium": "https://url.to.medium.image.jpg",
     "large": "https://url.to.large.image.jpg",
   },
-  "gender": "MF",
+  "gender": "mf",
   "category": {
     "id": 1,
     "title": "Surf camps"
@@ -132,29 +131,28 @@ type | no | `lesson` | Filter results in `products` to a particular product type
     "id": 12,
     "title": "Kauai, Hawaii"
   },
-  "room_type": null,
-  "capacity": 10,
+  "accommodation_type": null,
   "duration": {
     "is_flexible": false,
     "min": 7,
     "default": 7,
-    "unit": "DAY",
+    "unit": "day",
     "variants": [7, 10, 14],
   },
   "pax": {
     "min": 1,
-    "max": 12,
+    "max": 10,
   },
   "default_start_time": null,
   "is_private": false,
   "allowed_checkin_days": {
-    "Mon": true,
-    "Tue": false,
-    "Wed": true,
-    "Thu": true,
-    "Fri": false,
-    "Sat": true,
-    "Sun": false
+    "mon": true,
+    "tue": false,
+    "wed": true,
+    "thu": true,
+    "fri": false,
+    "sat": true,
+    "sun": false
   },
   "is_on_timeslots": false,
   "price_from": [
@@ -437,7 +435,7 @@ dates | Array of dates that the package item is available on. Be sure to referen
         "medium": "https://url.to.medium.image.jpg",
         "large": "https://url.to.large.image.jpg",
       },
-      "gender": "MF",
+      "gender": "mf",
       "category": {
         "id": 1,
         "title": "Surf camps"
@@ -446,14 +444,13 @@ dates | Array of dates that the package item is available on. Be sure to referen
         "id": 12,
         "title": "Kauai, Hawaii"
       },
-      "room_type": {
+      "accommodation_type": {
         "id": 1345,
         "title": "Double Room",
       },
-      "capacity": 2,
       "pax": {
         "min": 1,
-        "max": 2,
+        "max": 2
       },
       "is_private": false,
     }
