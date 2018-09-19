@@ -14,19 +14,21 @@ search: true
 
 Welcome to Bookinglayer's Public API documentation.
 
-If you have any questions or requests please send them through to [ollie@bookinglayer.com](mailto:ollie@bookinglayer.com).
+If you have any questions or requests please send them through to [tech@bookinglayer.com](mailto:tech@bookinglayer.com).
+
+# Authentication
+
+Each consumer of the Public API uses a unique key that is passed in the header of each request in the following format:
+
+`Authorization: Bearer {api_key}`
+
+The API key not only provides access to the Public API but also associates all actions with a 'user' associated with that key. It is possible for a business to have multiple API keys if there is a need for actions from multiple API consumers to be individually identified within the business' account.
+
+[Contact us](mailto:tech@bookinglayer.com) if you need to be issued an API key.
 
 # Request Structure
 
-`https://api2.bookinglayer.io/pub/v2/` is the root url for all requests to the Public API.
-
-At this stage all parameters are passed to endpoints as URL query parameters. The endpoint definitions below stipulate which parameters are required or optional.
-
-All requests require an API identification key, which is also passed to the endpoint as a URL query parameter: `?key=XXXXXXXX`. [Contact us](mailto:tech@bookinglayer.com) if you need to be issued an API key.
-
-<aside class="notice">
-TODO: handle authentication with API key in request header
-</aside>
+`https://api2.bookinglayer.io/pub/v2/` is the root url for all requests.
 
 # Products
 
@@ -103,7 +105,6 @@ Returns general information about categories and all available products. Note th
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
-key | yes | | Your unique API access key.
 language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code.
 location | no | `12` | Filter results in `products` to a particular location
 type | no | `activity` | Filter results in `products` to a particular product type. Product types options are: `package`, `accommodation`, `activity`, `rental`, `service`, `bundle` and `item`.
@@ -178,7 +179,6 @@ Where `{id}` is the id of the product
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
-key | yes | | Your unique API access key.
 language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code.
 
 # Packages
@@ -474,7 +474,6 @@ Where `{id}` is the id of the package which contains the accommodation options.
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
-key | yes | | Your unique API access key.
 start_date | yes | `2019-02-08` | The start date for the response in `YYYY-MM-DD` format.
 duration | yes | `3` | Duration of the enquiry in nights.
 males | yes | `2` | Number of males making the enquiry
@@ -575,7 +574,6 @@ Where `{id}` is the id of the product
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
-key | yes | | Your unique API access key.
 start_date | no | `2019-02-08` | The start date for the response in `YYYY-MM-DD` format. If not provided then the current date will be taken as the start date.
 
 # Prices
@@ -600,7 +598,6 @@ Where `{id}` is the id of the product
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
-key | yes | | Your unique API access key.
 start_date | yes | `2019-02-08` | The start date for the response in `YYYY-MM-DD` format.
 pax | yes | `2` | Number of guests making the enquiry
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
@@ -626,7 +623,6 @@ Returns an object where the keys are product ids for the requested products and 
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
-key | yes | | Your unique API access key.
 start_date | yes | `2019-02-08` | The start date for the response in `YYYY-MM-DD` format.
 pax | yes | `2` | Number of guests making the enquiry
 product_ids | yes | See below | An array of product ids
@@ -647,13 +643,13 @@ Note that the array of product ids should be passed in the form:
     "segments": [
       {
         "id": 138,
-        "from": "1900-01-01",
-        "to": "1900-04-29"
+        "start_date": "2019-01-01",
+        "end_date": "2019-04-29"
       },
       {
         "id": 139,
-        "from": "1900-08-01",
-        "to": "1900-12-31"
+        "start_date": "2019-08-01",
+        "end_date": "2019-12-31"
       }
     ]
   },
@@ -663,8 +659,8 @@ Note that the array of product ids should be passed in the form:
     "segments": [
       {
         "id": 137,
-        "from_date": "1900-05-30",
-        "to_date": "1900-07-31"
+        "start_date": "2019-05-30",
+        "end_date": "2019-07-31"
       }
     ]
   }
@@ -673,15 +669,27 @@ Note that the array of product ids should be passed in the form:
 
 Returns array of seasons and season segments for a business.
 
+Minor clarification: season segment `start_date` and `end_date` are inclusive dates. This means, for example, that if a season segment has a `start_date` of `2019-02-01` and an `end_date` of `2019-02-10`, that both `2019-02-01` and `2019-02-10` are considered part of that season segment.
+
 ### HTTP Request
 
 `GET https://api2.bookinglayer.io/pub/v2/seasons`
 
-### Query Parameters
+# Terms and Conditions
 
-Parameter | Required | Example | Description
---------- | ------- | ------- | -----------
-key | yes | | Your unique API access key.
+```json
+{ ... }
+```
+
+Returns the terms and conditions of booking. These must be accepted in order for a successful booking to be made.
+
+<aside class="notice">
+Response structure TBD.
+</aside>
+
+### HTTP Request
+
+`GET https://api2.bookinglayer.io/pub/v2/terms`
 
 # Deeplinking
 
@@ -705,7 +713,6 @@ Where `{id}` is the id of the product
 
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
-key | yes | | Your unique API access key.
 product_id | yes | `384` | The product id.
 start_date | no | `2019-02-08` | The start date in `YYYY-MM-DD` format.
 duration | no | `3` | Duration of the enquiry in the `duration_unit` defined for the product.
@@ -825,3 +832,67 @@ Parameter | Required | Description
 --------- | ------- |  -----------
 id | yes | The id of the package item (note that this is not the product id of the package item)
 dates | yes | An array of dates that the package item should be applied in `YYYY-MM-DD` or `YYYY-MM-DD HH:mm:ss` format.
+
+## Checking out the cart
+
+> example request payload for calling `/carts/{cart_id}/checkout`
+
+```json
+{
+  "cart_id": "6e518664-7325-4f7f-aa20-2880b9cfc305",
+  "terms_accepted": true,
+  "newsletter_opt_in": false,
+  "customer": {
+    "firstname": "Oliver",
+    "lastname": "Nicholson",
+    "email": "ollie@bookinglayer.com",
+    "gender": "m",
+    "language_code": "en",
+    "date_of_birth": "1984-02-04",
+    "phone_countrycode": 61,
+    "phone": "403 201 767",
+    "address_line_1": "Unit 1",
+    "address_line_2": "45 Armstrong Street",
+    "city": "Byron Bay",
+    "state": "NSW",
+    "zipcode": "2481",
+    "country": "Australia"
+  }
+}
+```
+
+Completing the order is performed by checking out the cart.
+
+The `cart_id`, customer details and optional newsletter opt-in are all that is required.
+
+### HTTP Request
+
+`PUT https://api2.bookinglayer.io/pub/v2/carts/{cart_id}/checkout`
+
+### Arguments
+
+Parameter | Required | Description
+--------- | ------- |  -----------
+cart_id | yes | The cart_id for the order which was returned in response from call to `/bookings/add`
+terms_accepted | yes | A bool specifying whether the customer agrees to the business' terms and conditions, as provided in [Terms and Conditions](#terms-and-conditions) response. Must be `true` to complete checkout.
+newsletter_opt_in | no | A bool specifying whether the customer agrees to receive promotional material from the supplier business
+customer | yes | An object of details of the customer; the person making the order
+
+#### Customer Object Arguments
+
+Parameter | Required | Description
+--------- | ------- |  -----------
+firstname | yes | The first name of the customer
+lastname | yes | The lastname of the customer
+email | yes | The email of the customer (note: must be unique for each customer)
+gender | no | The gender of the customer (`m` or `f`)
+language_code | no | The customer's preferred language in two-letter ISO 639-1 format
+date_of_birth | no | The customer's date of birth in `YYYY-MM-DD` format
+phone_countrycode | no | A number for the customer's phone country code (e.g. Australia is 61, not "+61")
+phone | no | A string of the customer's phone number
+address_line_1 | no | The customer's address
+address_line_2 | no | The customer's address
+city | no | The customer's city/town
+state | no | The customer's state
+zipcode | no | The customer's zipcode/postcode
+country | no | The customer's country _in English_
