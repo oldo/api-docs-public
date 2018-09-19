@@ -896,3 +896,47 @@ city | no | The customer's city/town
 state | no | The customer's state
 zipcode | no | The customer's zipcode/postcode
 country | no | The customer's country _in English_
+
+## Extend cart
+
+> Response
+
+```json
+{
+  "cart_id": "6e518664-7325-4f7f-aa20-2880b9cfc305",
+  "expiry_date": "2019-09-19T20:05:50+0000"
+}
+```
+
+Before a cart is checked out there is an expiry time, at which the cart is automatically abandon so that any items which are added to the cart are made available to other customers. However before a cart expires it is possible to extend the cart so that the expiry is delayed by 10 minutes from the time that the request is made.
+
+### HTTP Request
+
+`PUT https://api2.bookinglayer.io/pub/v2/carts/{cart_id}/extend`
+
+### Response
+
+Parameter | Description
+--------- | -----------
+cart_id | The id of the cart
+expiry_date | The date and time of expiry of the cart in UTC time
+
+## Abandon cart
+
+> Response
+
+```json
+{
+  "success": true
+}
+```
+
+Abandon the cart, making all items that were added to the cart available to other customers.
+
+### HTTP Request
+
+`PUT https://api2.bookinglayer.io/pub/v2/carts/{cart_id}/abandon`
+
+<aside class="notice">
+Should this be a DELETE call? `DELETE /carts/{cart_id}`
+</aside>
