@@ -720,3 +720,98 @@ females | no | `3` | Number of females.
 couples | no | `1` | Number of couples.
 language | no | `es` | Language that the frontoffice form should be rendered in.
 currency | no | `USD` | Currency that should be selected when frontoffice loads.
+
+# Making a Booking
+
+## Introduction
+
+Making a booking is a minimum two step process:
+
+* __Add items to the cart:__ call `/bookings/add` with information about the package being booked, including selected accommodation, package items and basic info about guests.
+  * Can be called multiple times.
+  * The first time `/bookings/add` is called a `cart_id` is returned in response.
+  * Subsequent calls to `/bookings/add` need to also include `cart_id` to add those items to the same cart as previous calls.
+* __Checkout cart:__ call `/cart/checkout` to finalise the booking, passing along information about the person making the booking and the appropriate `cart_id`.
+
+In addition there are endpoints for managing the cart: extend and clear.
+
+## Adding Items to the Cart
+
+> example request payload for calling `/bookings/add`
+
+```json
+{
+  "currency": "EUR",
+  "cart_id": "6e518664-7325-4f7f-aa20-2880b9cfc305",
+  "guests": [
+    {
+      "firstname": "Oliver",
+      "lastname": "Nicholson",
+      "email": "ollie@bookinglayer.com",
+      "gender": "m",
+      "language_code": "en",
+      "date_of_birth": "1984-02-04",
+      "package": {
+        "package_id": 384,
+        "start_date": "2018-10-01",
+        "end_date": "2018-10-08",
+        "accommodation_id": 392,
+        "items": [
+          {
+            "id": 394,
+            "dates": [
+              "2018-10-01"
+            ]
+          },
+          {
+            "id": 400,
+            "dates": [
+              "2018-10-02 10:30:00",
+              "2018-10-07 15:00:00"
+            ]
+          },
+          {
+            "id": 385,
+            "dates": [
+              "2018-10-04",
+              "2018-10-06",
+            ]
+          }
+        ]
+      }
+    },
+    { ... },
+    { ... }
+  ]
+}
+```
+
+Items can be added to a cart as many times as is wanted before checking the cart out to complete order. The first time that `/bookings/add` is called the `cart_id` that is returned in the response should be used in all subsequent calls to associate future bookings with a particular cart.
+
+`default` items are handled automatically by the API so it is not necessary to pass `default` items when calling `/bookings/add`. Only `option`, `alternative` and `upgrade` items need to be passed with request in `items` array.
+
+### HTTP Request
+
+`POST https://api2.bookinglayer.io/pub/v2/bookings/add`
+
+### Arguments
+
+Parameter | Required | Description
+--------- | ------- |  -----------
+currency | yes | The currency code for the order
+cart_id | no | The cart_id which is returned the first time `/bookings/add` is called when making an order
+guests | yes | An array of guest objects containing information about the guest and products they are booking
+firstname | yes | The first name of the guest
+lastname | yes | The lastname of the guest
+email | no | The email of the guest (note: must be unique for each guest)
+gender | yes | The gender of the guest (`m` or `f`)
+language_code | no | The guest's preferred language in two-letter ISO 639-1 format
+date_of_birth | no | The guest's date of birth in `YYYY-MM-DD` format
+package | yes | An object detailing the guest's configured package
+package_id | yes | The id of the package
+start_date | yes | The start date in `YYYY-MM-DD` format
+end_date | yes | The start date in `YYYY-MM-DD` format
+accommodation_id | yes/no | The id of the selected accommodation (this field is mandatory if the package has accommodation)
+items | no | An array of `option`, `alternative` and `upgrade` items that the guest has selected. Default items should not be returned (if they are they will be ignored)
+id | yes | The id of the package item (note that this is not the product id of the package item)
+dates | yes | An array of dates that the package item should be applied in `YYYY-MM-DD` or `YYYY-MM-DD HH:mm:ss` format.
