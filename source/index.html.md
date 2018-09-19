@@ -104,10 +104,9 @@ Returns general information about categories and all available products. Note th
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
 key | yes | | Your unique API access key.
-currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code.
 location | no | `12` | Filter results in `products` to a particular location
-type | no | `lesson` | Filter results in `products` to a particular product type. Product types options are: `package`, `accommodation`, `lesson`, `rental`, `service`, `bundle` and `item`.
+type | no | `activity` | Filter results in `products` to a particular product type. Product types options are: `package`, `accommodation`, `activity`, `rental`, `service`, `bundle` and `item`.
 
 ## Get Specific Product
 
@@ -180,7 +179,6 @@ Where `{id}` is the id of the product
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
 key | yes | | Your unique API access key.
-currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 language | no | `es` | If translation is available, returns translated fields such as "title" & "description" according to language code.
 
 # Packages
@@ -262,7 +260,7 @@ language | no | If translation is available, returns translated fields such as "
       "is_configurable_dates": true,
       "product": {
         "id": 3337,
-        "type": "lesson",
+        "type": "activity",
         "title": "Surf lesson on timeslots",
         "backoffice_title": "Advanced Surf Lesson",
         "description": "Maecenas faucibus mollis interdum.",
@@ -317,7 +315,7 @@ language | no | If translation is available, returns translated fields such as "
           "is_configurable_dates": true,
           "product": {
             "id": 3337,
-            "type": "lesson",
+            "type": "activity",
             "title": "Surf Session",
             "backoffice_title": "Late Surf Session",
             "description": "Maecenas faucibus mollis interdum.",
@@ -352,7 +350,7 @@ language | no | If translation is available, returns translated fields such as "
           "is_configurable_dates": true,
           "product": {
             "id": 3337,
-            "type": "lesson",
+            "type": "activity",
             "title": "Surf Session",
             "backoffice_title": "Late Surf Session",
             "description": "Maecenas faucibus mollis interdum.",
@@ -650,14 +648,12 @@ Note that the array of product ids should be passed in the form:
       {
         "id": 138,
         "from": "1900-01-01",
-        "to": "1900-04-29",
-        "season_id": 80
+        "to": "1900-04-29"
       },
       {
         "id": 139,
         "from": "1900-08-01",
-        "to": "1900-12-31",
-        "season_id": 80
+        "to": "1900-12-31"
       }
     ]
   },
@@ -668,8 +664,7 @@ Note that the array of product ids should be passed in the form:
       {
         "id": 137,
         "from_date": "1900-05-30",
-        "to_date": "1900-07-31",
-        "season_id": 81
+        "to_date": "1900-07-31"
       }
     ]
   }
@@ -752,7 +747,7 @@ In addition there are endpoints for managing the cart: extend and clear.
       "language_code": "en",
       "date_of_birth": "1984-02-04",
       "package": {
-        "package_id": 384,
+        "id": 384,
         "start_date": "2018-10-01",
         "end_date": "2018-10-08",
         "accommodation_id": 392,
@@ -788,7 +783,7 @@ In addition there are endpoints for managing the cart: extend and clear.
 
 Items can be added to a cart as many times as is wanted before checking the cart out to complete order. The first time that `/bookings/add` is called the `cart_id` that is returned in the response should be used in all subsequent calls to associate future bookings with a particular cart.
 
-`default` items are handled automatically by the API so it is not necessary to pass `default` items when calling `/bookings/add`. Only `option`, `alternative` and `upgrade` items need to be passed with request in `items` array.
+`default` items are handled automatically by the API so `default` items should not be included when calling `/bookings/add`. Only `option`, `alternative` and `upgrade` items need to be passed with request in `items` array.
 
 ### HTTP Request
 
@@ -801,6 +796,11 @@ Parameter | Required | Description
 currency | yes | The currency code for the order
 cart_id | no | The cart_id which is returned the first time `/bookings/add` is called when making an order
 guests | yes | An array of guest objects containing information about the guest and products they are booking
+
+#### Guest Object Arguments
+
+Parameter | Required | Description
+--------- | ------- |  -----------
 firstname | yes | The first name of the guest
 lastname | yes | The lastname of the guest
 email | no | The email of the guest (note: must be unique for each guest)
@@ -808,10 +808,20 @@ gender | yes | The gender of the guest (`m` or `f`)
 language_code | no | The guest's preferred language in two-letter ISO 639-1 format
 date_of_birth | no | The guest's date of birth in `YYYY-MM-DD` format
 package | yes | An object detailing the guest's configured package
-package_id | yes | The id of the package
+
+#### Package Object Arguments
+
+Parameter | Required | Description
+--------- | ------- |  -----------
+id | yes | The id of the package
 start_date | yes | The start date in `YYYY-MM-DD` format
 end_date | yes | The start date in `YYYY-MM-DD` format
 accommodation_id | yes/no | The id of the selected accommodation (this field is mandatory if the package has accommodation)
 items | no | An array of `option`, `alternative` and `upgrade` items that the guest has selected. Default items should not be returned (if they are they will be ignored)
+
+#### Package Items Object Arguments
+
+Parameter | Required | Description
+--------- | ------- |  -----------
 id | yes | The id of the package item (note that this is not the product id of the package item)
 dates | yes | An array of dates that the package item should be applied in `YYYY-MM-DD` or `YYYY-MM-DD HH:mm:ss` format.
