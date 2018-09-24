@@ -193,6 +193,13 @@ language | no | `es` | If translation is available, returns translated fields su
 
 ## Introduction
 
+Two important endpoints for fetching information about packages are:
+
+* `/packages/:id` - returns package items and information about the way in which a package can be configured
+* `/packages/:id/accommodations` - returns information about accommodations available to be booked as part of the package.
+
+## Package Items
+
 > simplified overview of response structure
 
 ```json
@@ -219,8 +226,6 @@ language | no | `es` | If translation is available, returns translated fields su
 }
 ```
 
-Returns package items and information about the way in which a package can be configured.
-
 There are two ways in which package items can be offered for sale:
 
 * A single item:
@@ -234,8 +239,6 @@ There are two ways in which package items can be offered for sale:
   * Returned as an array of `groups`, where each group contains an array of product objects in `items`.
 
 The product object in `single_items` and `groups` are of the same structure.
-
-## Packages Endpoint
 
 ### HTTP Request
 
@@ -418,13 +421,13 @@ price | Price object (see below)
 is_configurable_dates | Bool which sets whether the available dates in `dates` can be individually configured. If `true` then each date in `dates` can be individually selected/deselected. If `false` then package item should be presented as a checkbox.
 dates | Array of dates that the package item is available on. Be sure to reference `configurable_dates` to know whether the package item has the ability to be configured. See below for more details on `dates` structure.
 
-# Accommodation
+## Accommodation
 
 ```json
 [  
   {
-    "start": "2017-08-01",
-    "end": "2017-08-08",
+    "start_date": "2019-08-01",
+    "end_date": "2019-08-08",
     "available": 2,
     "price": {
       "type": "person",
