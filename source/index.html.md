@@ -787,8 +787,8 @@ In addition there are endpoints for managing the cart: extend and clear.
   "cart_id": "6e518664-7325-4f7f-aa20-2880b9cfc305",
   "guests": [
     {
-      "firstname": "Oliver",
-      "lastname": "Nicholson",
+      "first_name": "Oliver",
+      "last_name": "Nicholson",
       "email": "ollie@bookinglayer.com",
       "gender": "m",
       "language_code": "en",
@@ -848,8 +848,8 @@ guests | yes | An array of guest objects containing information about the guest 
 
 Parameter | Required | Description
 --------- | ------- |  -----------
-firstname | yes | The first name of the guest
-lastname | yes | The lastname of the guest
+first_name | yes | The first name of the guest
+last_name | yes | The lastname of the guest
 email | no | The email of the guest (note: must be unique for each guest)
 gender | yes | The gender of the guest (`m` or `f`)
 language_code | no | The guest's preferred language in two-letter ISO 639-1 format
@@ -883,8 +883,8 @@ dates | yes | An array of dates that the package item should be applied in `YYYY
   "terms_accepted": true,
   "newsletter_opt_in": false,
   "customer": {
-    "firstname": "Oliver",
-    "lastname": "Nicholson",
+    "first_name": "Oliver",
+    "last_name": "Nicholson",
     "email": "ollie@bookinglayer.com",
     "gender": "m",
     "language_code": "en",
@@ -922,8 +922,8 @@ customer | yes | An object of details of the customer; the person making the ord
 
 Parameter | Required | Description
 --------- | ------- |  -----------
-firstname | yes | The first name of the customer
-lastname | yes | The lastname of the customer
+first_name | yes | The first name of the customer
+last_name | yes | The lastname of the customer
 email | yes | The email of the customer (note: must be unique for each customer)
 gender | no | The gender of the customer (`m` or `f`)
 language_code | no | The customer's preferred language in two-letter ISO 639-1 format
