@@ -879,7 +879,6 @@ dates | yes | An array of dates that the package item should be applied in `YYYY
 
 ```json
 {
-  "cart_id": "6e518664-7325-4f7f-aa20-2880b9cfc305",
   "terms_accepted": true,
   "newsletter_opt_in": false,
   "customer": {
@@ -913,7 +912,6 @@ The `cart_id`, customer details and optional newsletter opt-in are all that is r
 
 Parameter | Required | Description
 --------- | ------- |  -----------
-cart_id | yes | The cart_id for the order which was returned in response from call to `/bookings/add`
 terms_accepted | yes | A bool specifying whether the customer agrees to the business' terms and conditions, as provided in [Terms and Conditions](#terms-and-conditions) response. Must be `true` to complete checkout.
 newsletter_opt_in | no | A bool specifying whether the customer agrees to receive promotional material from the supplier business
 customer | yes | An object of details of the customer; the person making the order
@@ -975,8 +973,4 @@ Abandon the cart, making all items that were added to the cart available to othe
 
 ### HTTP Request
 
-`PUT https://api2.bookinglayer.io/api/pub/v2/carts/{cart_id}/abandon`
-
-<aside class="notice">
-Should this be a DELETE call? `DELETE /carts/{cart_id}`
-</aside>
+`DELETE https://api2.bookinglayer.io/api/pub/v2/carts/{cart_id}`
