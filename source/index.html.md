@@ -495,9 +495,9 @@ females | yes | `2` | Number of females making the enquiry
 couples | yes | `0` | Number of couples making the enquiry
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 
-# Dates & Availability
+# Availability
 
-## Get Date & Availability
+## Get Availability of a Single Product
 
 > Response for package, accommodation, unscheduled and single date activities, services & rentals:
 
@@ -508,28 +508,28 @@ currency | no | `EUR` | Currency for returned prices. If not supplied the accoun
     "blocked": false,
     "available": 6,
     "capacity": 8,
-    "time_slots": null
+    "timeslots": null
   },
   "2019-05-02": {
     "allowed_for_checkin": true,
     "blocked": true,
     "available": 6,
     "capacity": 8,
-    "time_slots": null
+    "timeslots": null
   },
   "2019-05-03": {
     "allowed_for_checkin": true,
     "blocked": true,
     "available": 6,
     "capacity": 8,
-    "time_slots": null
+    "timeslots": null
   },
   "2019-05-04": {
     "allowed_for_checkin": false,
     "blocked": false,
     "available": 5,
     "capacity": 8,
-    "time_slots": null
+    "timeslots": null
   }
 }
 ```
@@ -539,7 +539,7 @@ currency | no | `EUR` | Currency for returned prices. If not supplied the accoun
 ```json
 {
   "2019-05-01": {
-    "time_slots": [
+    "timeslots": [
       {
         "time": "10:00",
         "available": 10,
@@ -554,10 +554,10 @@ currency | no | `EUR` | Currency for returned prices. If not supplied the accoun
   },
   "2019-05-02": {
     "blocked": true,
-    "time_slots": []
+    "timeslots": []
   },
   "2019-05-03": {
-    "time_slots": [
+    "timeslots": [
       {
         "time": "15:30",
         "available": 10,
@@ -566,7 +566,7 @@ currency | no | `EUR` | Currency for returned prices. If not supplied the accoun
     ]
   },
   "2019-05-04": {
-    "time_slots": []
+    "timeslots": []
   }
 }
 ```
