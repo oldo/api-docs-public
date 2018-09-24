@@ -28,7 +28,7 @@ The API key not only provides access to the Public API but also associates all a
 
 # Request Structure
 
-`https://api2.bookinglayer.io/pub/v2/` is the root url for all requests.
+`https://api2.bookinglayer.io/api/pub/v2/` is the root url for all requests.
 
 # Products
 
@@ -49,8 +49,12 @@ The API key not only provides access to the Public API but also associates all a
       "large": "https://url.to.large.image.jpg",
     },
     "gender": "mf",
-    "category": {
+    "backoffice_category": {
       "id": 1,
+      "title": "Surf packages"
+    },
+    "frontoffice_category": {
+      "id": 12,
       "title": "Surf camps"
     },
     "location": {
@@ -99,7 +103,7 @@ Returns general information about categories and all available products. Note th
 
 ### HTTP Request
 
-`GET https://api2.bookinglayer.io/pub/v2/products`
+`GET https://api2.bookinglayer.io/api/pub/v2/products`
 
 ### Query Parameters
 
@@ -125,8 +129,12 @@ type | no | `activity` | Filter results in `products` to a particular product ty
     "large": "https://url.to.large.image.jpg",
   },
   "gender": "mf",
-  "category": {
+  "backoffice_category": {
     "id": 1,
+    "title": "Surf packages"
+  },
+  "frontoffice_category": {
+    "id": 12,
     "title": "Surf camps"
   },
   "location": {
@@ -171,7 +179,7 @@ Returns information about specific product.
 
 ### HTTP Request
 
-`GET https://api2.bookinglayer.io/pub/v2/products/{id}`
+`GET https://api2.bookinglayer.io/api/pub/v2/products/{id}`
 
 Where `{id}` is the id of the product
 
@@ -231,7 +239,7 @@ The product object in `single_items` and `groups` are of the same structure.
 
 ### HTTP Request
 
-`GET https://api2.bookinglayer.io/pub/v2/packages/{id}`
+`GET https://api2.bookinglayer.io/api/pub/v2/packages/{id}`
 
 Where `{id}` is the id of the package.
 
@@ -239,7 +247,6 @@ Where `{id}` is the id of the package.
 
 Parameter | Required | Description
 --------- | ------- | -----------
-key | yes | Your unique API access key.
 start_date | yes | The start date for the response in `YYYY-MM-DD` format.
 duration | yes | Duration of the enquiry in nights.
 pax | yes | Number of people making the enquiry
@@ -275,7 +282,7 @@ language | no | If translation is available, returns translated fields such as "
           "value": 10,
           "currency": "EUR",
           "type": "person",
-          "from_price": true      <-- "this is true if qty or person prices are set for product"
+          "from_price": true      <-- "this is true if qty prices are set for product (i.e. if there is a discount for multiple items)"
         }
       },
       "dates": [
@@ -437,8 +444,12 @@ dates | Array of dates that the package item is available on. Be sure to referen
         "large": "https://url.to.large.image.jpg",
       },
       "gender": "mf",
-      "category": {
+      "backoffice_category": {
         "id": 1,
+        "title": "Surf packages"
+      },
+      "frontoffice_category": {
+        "id": 12,
         "title": "Surf camps"
       },
       "location": {
@@ -466,7 +477,7 @@ Returns an array of accommodation options for a package.
 
 ### HTTP Request
 
-`GET https://api2.bookinglayer.io/pub/v2/packages/{id}/accommodations`
+`GET https://api2.bookinglayer.io/api/pub/v2/packages/{id}/accommodations`
 
 Where `{id}` is the id of the package which contains the accommodation options.
 
@@ -566,7 +577,7 @@ Note that the flag for whether the product is on timeslots is returned as part o
 
 ### HTTP Request
 
-`GET https://api2.bookinglayer.io/pub/v2/products/{id}/availabilities`
+`GET https://api2.bookinglayer.io/api/pub/v2/products/{id}/availabilities`
 
 Where `{id}` is the id of the product
 
@@ -590,7 +601,7 @@ Returns the total price for a product.
 
 ### HTTP Request
 
-`GET https://api2.bookinglayer.io/pub/v2/products/{id}/prices`
+`GET https://api2.bookinglayer.io/api/pub/v2/products/{id}/prices`
 
 Where `{id}` is the id of the product
 
@@ -602,14 +613,39 @@ start_date | yes | `2019-02-08` | The start date for the response in `YYYY-MM-DD
 pax | yes | `2` | Number of guests making the enquiry
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 duration | no | `3` | Duration of the enquiry in the `duration_unit` defined for the product. If nothing is provided the product's `default_duration` will be used
+duration_unit | no | `day` | Duration unit associated with the duration. If nothing is provided the product's `default_duration_unit` will be used
 
 ## Multiple Products
+
+> Request
+
+```json
+{
+  "products": {
+    "329": {
+      "duration": 7,
+      "duration_unit": "day"
+    },
+    "512": {
+      "qty": 6,
+      "duration": 4,
+      "duration_unit": "hour"
+    },
+    "145": {
+      "duration": 7,
+      "duration_unit": "day"
+    },
+  }
+}
+```
+
+> Response
 
 ```json
 {
   "329": 12,
-  "125": 456,
-  "789": 123
+  "512": 456,
+  "145": 123
 }
 ```
 
@@ -617,7 +653,7 @@ Returns an object where the keys are product ids for the requested products and 
 
 ### HTTP Request
 
-`GET https://api2.bookinglayer.io/pub/v2/products/prices`
+`GET https://api2.bookinglayer.io/api/pub/v2/products/prices`
 
 ### Query Parameters
 
@@ -627,6 +663,7 @@ start_date | yes | `2019-02-08` | The start date for the response in `YYYY-MM-DD
 pax | yes | `2` | Number of guests making the enquiry
 product_ids | yes | See below | An array of product ids
 duration | yes | `3` | Duration of the enquiry
+duration_unit | no | `day` | Duration unit associated with the duration.
 currency | no | `EUR` | Currency for returned prices. If not supplied the account's default currency will be used in response.
 
 Note that the array of product ids should be passed in the form:
@@ -673,7 +710,7 @@ Minor clarification: season segment `start_date` and `end_date` are inclusive da
 
 ### HTTP Request
 
-`GET https://api2.bookinglayer.io/pub/v2/seasons`
+`GET https://api2.bookinglayer.io/api/pub/v2/seasons`
 
 # Terms and Conditions
 
@@ -689,7 +726,7 @@ Response structure TBD.
 
 ### HTTP Request
 
-`GET https://api2.bookinglayer.io/pub/v2/terms`
+`GET https://api2.bookinglayer.io/api/pub/v2/terms`
 
 # Deeplinking
 
@@ -705,7 +742,7 @@ Returns the URL required to link directly to the product in Bookinglayer's front
 
 ### HTTP Request
 
-`GET https://api2.bookinglayer.io/pub/v2/products/{id}/deeplink`
+`GET https://api2.bookinglayer.io/api/pub/v2/products/{id}/deeplink`
 
 Where `{id}` is the id of the product
 
@@ -794,7 +831,7 @@ Items can be added to a cart as many times as is wanted before checking the cart
 
 ### HTTP Request
 
-`POST https://api2.bookinglayer.io/pub/v2/bookings/add`
+`POST https://api2.bookinglayer.io/api/pub/v2/bookings/add`
 
 ### Arguments
 
@@ -867,7 +904,7 @@ The `cart_id`, customer details and optional newsletter opt-in are all that is r
 
 ### HTTP Request
 
-`PUT https://api2.bookinglayer.io/pub/v2/carts/{cart_id}/checkout`
+`PUT https://api2.bookinglayer.io/api/pub/v2/carts/{cart_id}/checkout`
 
 ### Arguments
 
@@ -912,7 +949,7 @@ Before a cart is checked out there is an expiry time, at which the cart is autom
 
 ### HTTP Request
 
-`PUT https://api2.bookinglayer.io/pub/v2/carts/{cart_id}/extend`
+`PUT https://api2.bookinglayer.io/api/pub/v2/carts/{cart_id}/extend`
 
 ### Response
 
@@ -935,7 +972,7 @@ Abandon the cart, making all items that were added to the cart available to othe
 
 ### HTTP Request
 
-`PUT https://api2.bookinglayer.io/pub/v2/carts/{cart_id}/abandon`
+`PUT https://api2.bookinglayer.io/api/pub/v2/carts/{cart_id}/abandon`
 
 <aside class="notice">
 Should this be a DELETE call? `DELETE /carts/{cart_id}`
