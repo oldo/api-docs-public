@@ -195,8 +195,8 @@ language | no | `es` | If translation is available, returns translated fields su
 
 Two important endpoints for fetching information about packages are:
 
-* `/packages/:id` - returns package items and information about the way in which a package can be configured
-* `/packages/:id/accommodations` - returns information about accommodations available to be booked as part of the package.
+* `/packages/{id}` - returns package items and information about the way in which a package can be configured
+* `/packages/{id}/accommodations` - returns information about accommodations available to be booked as part of the package.
 
 ## Package Items
 
@@ -252,7 +252,6 @@ Parameter | Required | Description
 --------- | ------- | -----------
 start_date | yes | The start date for the response in `YYYY-MM-DD` format.
 duration | yes | Duration of the enquiry in nights.
-pax | yes | Number of people making the enquiry
 currency | no | Currency for returned prices. If not supplied the account's default currency will be used in response.
 language | no | If translation is available, returns translated fields such as "title" & "description" according to language code.
 
@@ -314,7 +313,7 @@ language | no | If translation is available, returns translated fields such as "
     { ... },
     { ... }
   ],
-  
+
   "groups": [
     {
       "is_configurable_dates": true,
@@ -773,9 +772,9 @@ Making a booking is a minimum two step process:
   * Can be called multiple times.
   * The first time `/bookings/add` is called a `cart_id` is returned in response.
   * Subsequent calls to `/bookings/add` need to also include `cart_id` to add those items to the same cart as previous calls.
-* __Checkout cart:__ call `/cart/checkout` to finalise the booking, passing along information about the person making the booking and the appropriate `cart_id`.
+* __Checkout cart:__ call `/carts/{cart_id}/checkout` to finalise the booking, passing along information about the person making the booking and acceptance of terms of booking.
 
-In addition there are endpoints for managing the cart: extend and clear.
+In addition there are endpoints for managing the cart: extend and abandon.
 
 ## Adding Items to the Cart
 
