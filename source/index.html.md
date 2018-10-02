@@ -791,7 +791,7 @@ In addition there are endpoints for managing the cart: extend and abandon.
       "email": "ollie@bookinglayer.com",
       "gender": "m",
       "language_code": "en",
-      "date_of_birth": "1984-02-04",
+      "birth_date": "1984-02-04",
       "package": {
         "id": 384,
         "start_date": "2018-10-01",
@@ -852,7 +852,7 @@ last_name | yes | The lastname of the guest
 email | no | The email of the guest (note: must be unique for each guest)
 gender | yes | The gender of the guest (`m` or `f`)
 language_code | no | The guest's preferred language in two-letter ISO 639-1 format
-date_of_birth | no | The guest's date of birth in `YYYY-MM-DD` format
+birth_date | no | The guest's date of birth in `YYYY-MM-DD` format
 package | yes | An object detailing the guest's configured package
 
 #### Package Object Arguments
@@ -886,7 +886,7 @@ dates | yes | An array of dates that the package item should be applied in `YYYY
     "email": "ollie@bookinglayer.com",
     "gender": "m",
     "language_code": "en",
-    "date_of_birth": "1984-02-04",
+    "birth_date": "1984-02-04",
     "phone_countrycode": 61,
     "phone": "403 201 767",
     "address_line_1": "Unit 1",
@@ -905,7 +905,7 @@ The `cart_id`, customer details and optional newsletter opt-in are all that is r
 
 ### HTTP Request
 
-`PUT https://api2.bookinglayer.io/api/pub/v2/carts/{cart_id}/checkout`
+`POST https://api2.bookinglayer.io/api/pub/v2/carts/{cart_id}/checkout`
 
 ### Arguments
 
@@ -924,7 +924,7 @@ last_name | yes | The lastname of the customer
 email | yes | The email of the customer (note: must be unique for each customer)
 gender | no | The gender of the customer (`m` or `f`)
 language_code | no | The customer's preferred language in two-letter ISO 639-1 format
-date_of_birth | no | The customer's date of birth in `YYYY-MM-DD` format
+birth_date | no | The customer's date of birth in `YYYY-MM-DD` format
 phone_countrycode | no | A number for the customer's phone country code (e.g. Australia is 61, not "+61")
 phone | no | A string of the customer's phone number
 address_line_1 | no | The customer's address
@@ -933,6 +933,14 @@ city | no | The customer's city/town
 state | no | The customer's state
 zipcode | no | The customer's zipcode/postcode
 country | no | The customer's country _in English_
+
+## Viewing the cart
+
+Returns the contents of the cart
+
+### HTTP Request
+
+`GET https://api2.bookinglayer.io/api/pub/v2/carts/{cart_id}`
 
 ## Extend cart
 
