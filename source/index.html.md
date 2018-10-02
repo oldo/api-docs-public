@@ -264,7 +264,7 @@ language | no | If translation is available, returns translated fields such as "
 
   "single_items": [
     {
-      "id": 27299,
+      "package_item_id": 27299,
       "role": "option",
       "is_configurable_dates": true,
       "product": {
@@ -319,7 +319,7 @@ language | no | If translation is available, returns translated fields such as "
       "is_configurable_dates": true,
       "items": [
         {
-          "id": 27299,
+          "package_item_id": 27299,
           "role": "default",
           "is_configurable_dates": true,
           "product": {
@@ -354,7 +354,7 @@ language | no | If translation is available, returns translated fields such as "
           ],
         },
         {
-          "id": 27299,
+          "package_item_id": 27299,
           "role": "alternative",
           "is_configurable_dates": true,
           "product": {
@@ -799,20 +799,20 @@ In addition there are endpoints for managing the cart: extend and abandon.
         "accommodation_id": 392,
         "items": [
           {
-            "id": 394,
+            "package_item_id": 394,
             "dates": [
               "2018-10-01"
             ]
           },
           {
-            "id": 400,
+            "package_item_id": 400,
             "dates": [
               "2018-10-02 10:30:00",
               "2018-10-07 15:00:00"
             ]
           },
           {
-            "id": 385,
+            "package_item_id": 385,
             "dates": [
               "2018-10-04",
               "2018-10-06",
