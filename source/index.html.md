@@ -423,7 +423,7 @@ dates | Array of dates that the package item is available on. Be sure to referen
 ## Accommodation
 
 ```json
-[  
+[
   {
     "start_date": "2019-08-01",
     "end_date": "2019-08-08",
@@ -496,35 +496,38 @@ currency | no | `EUR` | Currency for returned prices. If not supplied the accoun
 
 # Availability
 
-## Get Availability of a Single Product
+## Single Product
 
 > Response for package, accommodation, unscheduled and single date activities, services & rentals:
 
 ```json
 {
   "2019-05-01": {
-    "allowed_for_checkin": true,
+    "available_for_checkin": true,
+    "available_for_checkout": true,
     "blocked": false,
     "available": 6,
     "capacity": 8,
     "timeslots": null
   },
   "2019-05-02": {
-    "allowed_for_checkin": true,
+    "available_for_checkin": true,
+    "available_for_checkout": true,
     "blocked": true,
     "available": 6,
     "capacity": 8,
     "timeslots": null
   },
   "2019-05-03": {
-    "allowed_for_checkin": true,
+    "available_for_checkin": true,
+    "available_for_checkout": true,
     "blocked": true,
     "available": 6,
     "capacity": 8,
     "timeslots": null
   },
   "2019-05-04": {
-    "allowed_for_checkin": false,
+    "available_for_checkin": false,
     "blocked": false,
     "available": 5,
     "capacity": 8,
@@ -588,6 +591,74 @@ Where `{id}` is the id of the product
 Parameter | Required | Example | Description
 --------- | ------- | ------- | -----------
 start_date | no | `2019-02-08` | The start date for the response in `YYYY-MM-DD` format. If not provided then the current date will be taken as the start date.
+end_date | no | `2019-03-08` | The end date for the response in `YYYY-MM-DD` format. If not provided then 30 days in advance of `start_date` will be used.
+
+## Multiple Products
+
+> Response for package, accommodation, unscheduled and single date activities, services & rentals:
+
+```json
+[
+  "3368": {
+    "2019-05-01": {
+      "available_for_checkin": true,
+      "available_for_checkout": true,
+      "blocked": false,
+      "available": 6,
+      "capacity": 8,
+      "timeslots": null
+    },
+    "2019-05-02": {
+      "available_for_checkin": true,
+      "available_for_checkout": true,
+      "blocked": true,
+      "available": 6,
+      "capacity": 8,
+      "timeslots": null
+    },
+    "2019-05-03": {
+      "available_for_checkin": true,
+      "available_for_checkout": true,
+      "blocked": true,
+      "available": 6,
+      "capacity": 8,
+      "timeslots": null
+    },
+    "2019-05-04": {
+      "available_for_checkin": false,
+      "blocked": false,
+      "available": 5,
+      "capacity": 8,
+      "timeslots": null
+    },
+    { ... },
+    { ... },
+    { ... }
+  },
+  "4562": { ... },
+  "5283": { ... },
+  "9742": { ... },
+]
+
+```
+
+Returns dates and availability information for multiple products.
+
+* 1 month worth of availability data will be returned from today's date or `start_date` if provided.
+
+### HTTP Request
+
+`GET https://api2.bookinglayer.io/api/pub/v2/products/availabilities`
+
+### Query Parameters
+
+Parameter | Required | Example | Description
+--------- | ------- | ------- | -----------
+start_date | no | `2019-02-08` | The start date for the response in `YYYY-MM-DD` format. If not provided then the current date will be taken as the start date.
+end_date | no | `2019-03-08` | The end date for the response in `YYYY-MM-DD` format. If not provided then 30 days in advance of `start_date` will be used.
+ids[] | no | 3456 | The ids of specific products that you want availability information
+type | no | `package` | Fetch availability information for products of this type
+backoffice_category_id | no | 764 | Fetch availability information for products of this backoffice category
 
 # Prices
 
