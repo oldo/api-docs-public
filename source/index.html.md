@@ -512,7 +512,7 @@ currency | no | `EUR` | Currency for returned prices. If not supplied the accoun
   },
   "2019-05-02": {
     "available_for_checkin": true,
-    "available_for_checkout": true,
+    "available_for_checkout": false,
     "blocked": true,
     "available": 6,
     "capacity": 8,
@@ -528,6 +528,7 @@ currency | no | `EUR` | Currency for returned prices. If not supplied the accoun
   },
   "2019-05-04": {
     "available_for_checkin": false,
+    "available_for_checkout": true,
     "blocked": false,
     "available": 5,
     "capacity": 8,
@@ -742,6 +743,101 @@ currency | no | `EUR` | Currency for returned prices. If not supplied the accoun
 Note that the array of product ids should be passed in the form:
 
 `&product_ids[]=329&product_ids[]=125&product_ids[]=789`
+
+## Package Prices
+
+> Request
+
+```json
+{
+  "currency_id": "USD",
+  "guests": [
+    {
+      "unique_id": "guest_1",
+      "first_name": "Oliver",
+      "last_name": "Nicholson",
+      "gender": "M",
+      "email": "oliver@gmail.com",
+      "language_code": "en",
+      "package": {
+        "id": 3374,
+        "start_date": "2019-01-09",
+        "end_date": "2019-01-16",
+        "accommodation_id": 3343,
+        "items": [
+          {
+            "package_item_id": 41514,
+            "dates": ["2019-01-11", "2019-01-13"]
+          },
+          {
+            "package_item_id": 41516,
+            "dates": ["2019-01-12"]
+          },
+          {
+            "package_item_id": 41520,
+            "dates": ["2019-01-09"]
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+> Response
+
+```json
+{
+  "guest_1": [
+    {
+      "package_item_id": 41530,
+      "product_id": 3343,
+      "price": 3710,
+      "is_fixed": false,
+      "guest_to_charge": [
+        "guest_1"
+      ]
+    },
+    {
+      "package_item_id": 41514,
+      "product_id": 3354,
+      "price": 220,
+      "is_fixed": false,
+      "guest_to_charge": [
+        "guest_1"
+      ]
+    },
+    {
+      "package_item_id": 41516,
+      "product_id": 3355,
+      "price": 150,
+      "is_fixed": false,
+      "guest_to_charge": [
+        "guest_1"
+      ]
+    },
+    {
+      "package_item_id": 41520,
+      "product_id": 3357,
+      "price": 520,
+      "is_fixed": false,
+      "guest_to_charge": [
+        "guest_1"
+      ]
+    }
+  ]
+}
+```
+
+To avoid clientside calculation of prices, this endpoint returns an object breaking down the price of each package item that has been selected. Each guest is identified in the request by a temporary `unique_id` which is set by the API consumer. This `unique_id` serves as the key to identifying the guest in the response.
+
+### HTTP Request
+
+`POST https://api2.bookinglayer.io/api/pub/v2/packages/prices`
+
+### Arguments
+
+The request payload is the same as when <a href="#adding-items-to-the-cart">adding items to the cart</a> however each guest object must contain a `unique_id`
 
 # Seasons
 
