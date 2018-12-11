@@ -12,6 +12,10 @@ search: true
 
 # Introduction
 
+<aside class="notice">
+  This public API is in beta and endpoints are subject to change.
+</aside>
+
 Welcome to Bookinglayer's Public API documentation.
 
 If you have any questions or requests please send them through to [tech@bookinglayer.com](mailto:tech@bookinglayer.com).
