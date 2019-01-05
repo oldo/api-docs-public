@@ -34,6 +34,81 @@ The API key not only provides access to the Public API but also associates all a
 
 `https://api2.bookinglayer.io/api/pub/v2/` is the root url for all requests.
 
+# Settings
+
+## Fetch business level settings
+
+```json
+{
+  "id": 176,
+  "title": "LUEX Demo",
+  "business_domain": "luex.bookinglayer.io",
+  "company_name": "LUEX ",
+  "website_url": null,
+  "currencies": [
+    {
+      "id": 1,
+      "title": "Euro",
+      "symbol": "€",
+      "iso_code": "EUR"
+    },
+    { ... }
+    { ... }
+  ],
+  "diets": [
+    {
+      "id": 386,
+      "title": "Vegetarian",
+      "description": "No meat at all. ",
+      "abbreviation": null
+    },
+    { ... },
+    { ... },
+  ],
+  "levels": [
+    {
+      "id": 491,
+      "title": "Beginner",
+      "description": "You have never (or only once or twice) performed this activity in the past and need a supervised environment.",
+      "abbreviation": null
+    },
+    { ... },
+    { ... },
+  ],
+  "languages": [
+    "en",
+    "de"
+  ],
+  "settings": {
+    "guest_fields": {
+      "birthday": {
+        "request": true,
+        "required": false
+      },
+      "minimum_age": 0
+    },
+    "customer_fields": {
+      "address": {
+        "request": false,
+        "required": false
+      },
+      "phone": {
+        "request": true,
+        "required": true
+      },
+      "minimum_age": 0
+    }
+  },
+  "terms": "These are our booking terms and conditions."
+}
+```
+
+Returns all business level settings.
+
+### HTTP Request
+
+`GET https://api2.bookinglayer.io/api/pub/v2/settings`
+
 # Products
 
 ## Get All Products
@@ -884,82 +959,6 @@ Minor clarification: season segment `start_date` and `end_date` are inclusive da
 ### HTTP Request
 
 `GET https://api2.bookinglayer.io/api/pub/v2/seasons`
-
-# Settings
-
-## Fetch business level settings
-
-
-```json
-{
-  "id": 176,
-  "title": "LUEX Demo",
-  "business_domain": "luex.bookinglayer.io",
-  "company_name": "LUEX ",
-  "website_url": null,
-  "currencies": [
-    {
-      "id": 1,
-      "title": "Euro",
-      "symbol": "€",
-      "iso_code": "EUR"
-    },
-    { ... }
-    { ... }
-  ],
-  "diets": [
-    {
-      "id": 386,
-      "title": "Vegetarian",
-      "description": "No meat at all. ",
-      "abbreviation": null
-    },
-    { ... },
-    { ... },
-  ],
-  "levels": [
-    {
-      "id": 491,
-      "title": "Beginner",
-      "description": "You have never (or only once or twice) performed this activity in the past and need a supervised environment.",
-      "abbreviation": null
-    },
-    { ... },
-    { ... },
-  ],
-  "languages": [
-    "en",
-    "de"
-  ],
-  "settings": {
-    "guest_fields": {
-      "birthday": {
-        "request": true,
-        "required": false
-      },
-      "minimum_age": 0
-    },
-    "customer_fields": {
-      "address": {
-        "request": false,
-        "required": false
-      },
-      "phone": {
-        "request": true,
-        "required": true
-      },
-      "minimum_age": 0
-    }
-  },
-  "terms": "These are our booking terms and conditions."
-}
-```
-
-Returns all business level settings.
-
-### HTTP Request
-
-`GET https://api2.bookinglayer.io/api/pub/v2/settings`
 
 # Deeplinking
 
