@@ -36,7 +36,7 @@ The API key not only provides access to the Public API but also associates all a
 
 # Settings
 
-## Fetch business level settings
+## Business Level Settings
 
 ```json
 {
