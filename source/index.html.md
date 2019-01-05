@@ -885,21 +885,15 @@ Minor clarification: season segment `start_date` and `end_date` are inclusive da
 
 `GET https://api2.bookinglayer.io/api/pub/v2/seasons`
 
-# Terms and Conditions
+# Settings
 
-```json
-{ ... }
-```
+## Fetch business level settings
 
-Returns the terms and conditions of booking. These must be accepted in order for a successful booking to be made.
-
-<aside class="notice">
-Response structure TBD.
-</aside>
+Returns all business level settings.
 
 ### HTTP Request
 
-`GET https://api2.bookinglayer.io/api/pub/v2/terms`
+`GET https://api2.bookinglayer.io/api/pub/v2/settings`
 
 # Deeplinking
 
