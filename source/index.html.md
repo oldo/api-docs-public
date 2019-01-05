@@ -40,11 +40,10 @@ The API key not only provides access to the Public API but also associates all a
 
 ```json
 {
-  "id": 176,
-  "title": "LUEX Demo",
-  "business_domain": "luex.bookinglayer.io",
-  "company_name": "LUEX ",
-  "website_url": null,
+  "id": 123,
+  "title": "business title",
+  "company_name": "company name",
+  "frontoffice_domain": "business.bookinglayer.io",
   "currencies": [
     {
       "id": 1,
